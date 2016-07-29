@@ -16,11 +16,14 @@ public class GridController : MonoBehaviour
     const int GRID_WIDTH = 15; // The numberof cells wide the grid is
     const int GRID_HEIGHT = 30; // The number of cells High the grid is
     public Vector3[,] grid;
-    int pikachuX; // Pikachus current X position
-    int pikachuY; // Pikachus current Y position
+    int pikachuX = 8; // Pikachus current X position
+    int pikachuY = 1; // Pikachus current Y position
     int pikaNewX; // New x position
     int pikaNewY; // New Y position
     bool[,] objGrid = new bool[GRID_WIDTH, GRID_HEIGHT]; //2D bool array of where obstacles are
+
+    public GameObject pikachuObject; //Pikachu Object
+    GameObject pikachu; //Pikachu Instance
 
     // Use this for initialization
     void Start()
@@ -36,6 +39,12 @@ public class GridController : MonoBehaviour
                 objGrid[x, y] = false;
             }
         }
+
+     
+        //Create Pikachu and tell it what the GridController is
+        pikachu = (GameObject)Instantiate(pikachuObject, grid[pikachuX, pikachuY], transform.rotation);
+        pikachu.GetComponent<Pikachu>().gridController = gameObject.GetComponent<GridController>();
+        
 
     }
 
@@ -88,7 +97,14 @@ public class GridController : MonoBehaviour
             pikachuY = pikaNewY;
         }
         // Return Pikachu's New Position using it's new grid coords
+        Debug.Log("NewPosition : " + grid[pikachuX, pikachuY]);
         return grid[pikachuX, pikachuY];
+    }
+
+    public void PikachuDead()
+    {
+        //Do Something
+        DestroyObject(pikachu);
     }
 
     // Update is called once per frame
@@ -97,3 +113,4 @@ public class GridController : MonoBehaviour
 
     }
 }
+ 

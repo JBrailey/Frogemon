@@ -1,13 +1,29 @@
 fileFormatVersion: 2
-guid: 1ad49f45069574b40aa86e2c7aec803b
-timeCreated: 1469693364
+guid: 84a33cc890149934982ae3c39449d260
+timeCreated: 1469445545
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: Pikachu Sprites_0
+    21300002: Pikachu Sprites_1
+    21300004: Pikachu Sprites_2
+    21300006: Pikachu Sprites_3
+    21300008: Pikachu Sprites_4
+    21300010: Pikachu Sprites_5
+    21300012: Pikachu Sprites_6
+    21300014: Pikachu Sprites_7
+    21300016: Pikachu Sprites_8
+    21300018: Pikachu Sprites_9
+    21300020: Pikachu Sprites_10
+    21300022: Pikachu Sprites_11
+    21300024: Pikachu Sprites_12
+    21300026: Pikachu Sprites_13
+    21300028: Pikachu Sprites_14
+    21300030: Pikachu Sprites_15
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -29,28 +45,220 @@ TextureImporter:
   textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
-    filterMode: -1
-    aniso: -1
+    filterMode: 0
+    aniso: 16
     mipBias: -1
-    wrapMode: -1
-  nPOTScale: 1
+    wrapMode: 1
+  nPOTScale: 0
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
-  alphaIsTransparency: 0
-  textureType: -1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    serializedVersion: 2
-    sprites: []
+    sprites:
+    - name: Pikachu Sprites_0
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 65
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - name: Pikachu Sprites_1
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 64
+        width: 21
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - name: Pikachu Sprites_2
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 65
+        width: 21
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - name: Pikachu Sprites_3
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 63
+        width: 21
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - name: Pikachu Sprites_4
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 63
+        width: 22
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - name: Pikachu Sprites_5
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 34
+        width: 22
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - name: Pikachu Sprites_6
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 34
+        width: 22
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - name: Pikachu Sprites_7
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 34
+        width: 22
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - name: Pikachu Sprites_8
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 34
+        width: 22
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - name: Pikachu Sprites_9
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 34
+        width: 22
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - name: Pikachu Sprites_10
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 34
+        width: 22
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - name: Pikachu Sprites_11
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 6
+        width: 31
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - name: Pikachu Sprites_12
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 6
+        width: 18
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - name: Pikachu Sprites_13
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 5
+        width: 18
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - name: Pikachu Sprites_14
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 5
+        width: 19
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - name: Pikachu Sprites_15
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 6
+        width: 31
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     outline: []
   spritePackingTag: 
   userData: 

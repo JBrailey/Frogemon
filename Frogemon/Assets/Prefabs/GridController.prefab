@@ -40,6 +40,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 894c8367cdbd8f843b02914263276042, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pikachuObject: {fileID: 183068, guid: ba3187b2fd853e147805b5a362f89114, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

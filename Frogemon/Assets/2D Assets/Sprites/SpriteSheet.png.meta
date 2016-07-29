@@ -1,13 +1,25 @@
 fileFormatVersion: 2
-guid: 3c8e88a3674df7e47bbd14b0379b9850
-timeCreated: 1469693364
+guid: 010c3874348f68c4f8a17cdd1702e072
+timeCreated: 1469439283
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: SpriteSheet_0
+    21300002: SpriteSheet_1
+    21300004: SpriteSheet_2
+    21300006: SpriteSheet_3
+    21300008: SpriteSheet_4
+    21300010: SpriteSheet_5
+    21300012: SpriteSheet_6
+    21300014: SpriteSheet_7
+    21300016: SpriteSheet_8
+    21300018: SpriteSheet_9
+    21300020: SpriteSheet_10
+    21300022: SpriteSheet_11
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -29,28 +41,241 @@ TextureImporter:
   textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
-    filterMode: -1
-    aniso: -1
+    filterMode: 0
+    aniso: 16
     mipBias: -1
-    wrapMode: -1
-  nPOTScale: 1
+    wrapMode: 1
+  nPOTScale: 0
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
-  alphaIsTransparency: 0
-  textureType: -1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    serializedVersion: 2
-    sprites: []
+    sprites:
+    - name: SpriteSheet_0
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 189
+        width: 44
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 13, y: 30}
+        - {x: -17, y: 30}
+        - {x: -22, y: 25}
+        - {x: -22, y: -19}
+        - {x: -19, y: -28}
+        - {x: -17, y: -30}
+        - {x: 17, y: -30}
+        - {x: 22, y: -29}
+        - {x: 22, y: 18}
+        - {x: 20, y: 28}
+      tessellationDetail: 0
+    - name: SpriteSheet_1
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 189
+        width: 50
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -18, y: 30}
+        - {x: -25, y: 25}
+        - {x: -25, y: -19}
+        - {x: -19, y: -27}
+        - {x: -10, y: -30}
+        - {x: 15, y: -30}
+        - {x: 25, y: -16}
+        - {x: 25, y: 26}
+        - {x: 13, y: 30}
+      tessellationDetail: 0
+    - name: SpriteSheet_2
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 188
+        width: 42
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -17, y: 30}
+        - {x: -21, y: 29}
+        - {x: -21, y: -13}
+        - {x: -9, y: -30}
+        - {x: 11, y: -30}
+        - {x: 21, y: -11}
+        - {x: 21, y: 30}
+      tessellationDetail: 0
+    - name: SpriteSheet_3
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 197
+        width: 39
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -16.5, y: 21.5}
+        - {x: -19.5, y: 16.5}
+        - {x: -19.5, y: -19.5}
+        - {x: -17.5, y: -21.5}
+        - {x: 17.5, y: -21.5}
+        - {x: 19.5, y: -13.5}
+        - {x: 19.5, y: 21.5}
+      tessellationDetail: 0
+    - name: SpriteSheet_4
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 147
+        width: 53
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - name: SpriteSheet_5
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 136
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -22, y: 22}
+        - {x: -22, y: -22}
+        - {x: 22, y: -22}
+        - {x: 22, y: 22}
+      tessellationDetail: 0
+    - name: SpriteSheet_6
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 106
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -18, y: 30}
+        - {x: -30, y: 14}
+        - {x: -30, y: -19}
+        - {x: -14, y: -30}
+        - {x: 17, y: -30}
+        - {x: 30, y: -22}
+        - {x: 30, y: 20}
+        - {x: 25, y: 30}
+      tessellationDetail: 0
+    - name: SpriteSheet_7
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 91
+        width: 39
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -18.5, y: -18}
+        - {x: 15.5, y: -18}
+        - {x: 19.5, y: -17}
+        - {x: 19.5, y: 18}
+        - {x: -19.5, y: 18}
+        - {x: -19.5, y: -17}
+      tessellationDetail: 0
+    - name: SpriteSheet_8
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 91
+        width: 39
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -18.5, y: -18}
+        - {x: 15.5, y: -18}
+        - {x: 19.5, y: -17}
+        - {x: 19.5, y: 18}
+        - {x: -19.5, y: 18}
+        - {x: -19.5, y: -17}
+      tessellationDetail: 0
+    - name: SpriteSheet_9
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 7
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -32, y: 32}
+        - {x: -32, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      tessellationDetail: 0
+    - name: SpriteSheet_10
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 7
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -32, y: 32}
+        - {x: -32, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      tessellationDetail: 0
+    - name: SpriteSheet_11
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 7
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -32, y: 32}
+        - {x: -32, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      tessellationDetail: 0
     outline: []
   spritePackingTag: 
   userData: 
