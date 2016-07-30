@@ -41,6 +41,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pikachuObject: {fileID: 183068, guid: ba3187b2fd853e147805b5a362f89114, type: 2}
+  foodObject: {fileID: 186616, guid: d039aae6af5643b4e9b567df1016df2c, type: 2}
+  grassTile: {fileID: 195950, guid: 13d833b908c20234980750f1585f45bc, type: 2}
+  waterTile: {fileID: 178438, guid: f3eefae83bd52194ca85efbf513d255d, type: 2}
+  bridgeTile: {fileID: 165890, guid: 72405d05cdf4f5f4196594712217a570, type: 2}
+  obstacleTiles:
+  - {fileID: 116782, guid: 72d097dc4a9d6694ba5050bf277d963b, type: 2}
+  - {fileID: 147686, guid: 57ad5777a93e39c42b8b1341964a1a94, type: 2}
+  - {fileID: 169910, guid: 28d65132959dc1f4bb4c47f9c1bc8a5b, type: 2}
+  - {fileID: 163214, guid: 7e682b269b5a60b49bc07d1c08bbd251, type: 2}
+  - {fileID: 184228, guid: 6437a78605956d74e897c6385d1343d7, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

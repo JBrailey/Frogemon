@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Pikachu : MonoBehaviour {
+public class Pikachu : MonoBehaviour
+{
 
     public GridController gridController;
     AudioSource pikaWalk, pikaDeath, pikaBlock;
     Animator anim;
-    Vector3 position;
+    Vector3 position, newPosition;
+    float speed = 1f;
+    bool moving = false, eating = false;
+    string lastDirection = "Up";
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         //gridController = GetComponent<GridController>();
         anim = GetComponent<Animator>();
 
@@ -19,47 +24,113 @@ public class Pikachu : MonoBehaviour {
         pikaDeath = audio[2];
 
         position = transform.position;
-	}
+    }
 
     void SetGridController(GridController gc)
     {
         gridController = gc;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
+        // Kill Test
+        if (Input.GetKeyUp(KeyCode.K))
+        {
+            Die();
+        }
+
+        // If not currently moving, Check for Key Presses
+        if (!moving)
+        {
+            CheckForKeyPress();
+        }
+        //If still moving, Kep moving
+        else
+        {
+            Move();
+        }
+    }
+
+    void CheckForKeyPress()
+    {
         // Check for WASD being pressed. Checking for Key Release.
         if (Input.GetKeyUp(KeyCode.W))
         {
-            Move("Up");
-        }else if (Input.GetKeyUp(KeyCode.A))
-        {
-            Move("Left");
-        }else if (Input.GetKeyUp(KeyCode.S))
-        {
-            Move("Down");
-        }else if (Input.GetKeyUp(KeyCode.D))
-        {
-            Move("Right");
+            newPosition = GetNewPosition("Up");
+            moving = true;
         }
-	}
-
-    private void SetAnimation(int animation)
-    {
-        anim.SetInteger("Animation", animation);
+        else if (Input.GetKeyUp(KeyCode.A))
+        {
+            newPosition = GetNewPosition("Left");
+            moving = true;
+        }
+        else if (Input.GetKeyUp(KeyCode.S))
+        {
+            newPosition = GetNewPosition("Down");
+            moving = true;
+        }
+        else if (Input.GetKeyUp(KeyCode.D))
+        {
+            newPosition = GetNewPosition("Right");
+            moving = true;
+        }
     }
 
-    void Move(string direction)
+    // Moves Pikachu toward New Location
+    void Move()
     {
-        // pikaWalk.Play();
-        Vector3 newPosition = gridController.ReturnNewPikaPos(direction);
+        //Check if done moving
+        if (transform.position.Equals(newPosition))
+        {
+            moving = false;
+            PlayIdleAnimation();
+        }
+        //If not done moving, Move
+        else
+        {
+            transform.position = Vector3.MoveTowards(transform.position, newPosition, speed * Time.deltaTime);
+        }
+    }
+
+    void PlayIdleAnimation()
+    {
+        if (!eating)
+        {
+            if (lastDirection.Equals("Up"))
+            {
+                anim.Play("IdleForward");
+            }
+            else if (lastDirection.Equals("Left"))
+            {
+                anim.Play("IdleLeft");
+            }
+            else if (lastDirection.Equals("Down"))
+            {
+                anim.Play("IdleBackward");
+            }
+            else if (lastDirection.Equals("Right"))
+            {
+                anim.Play("IdleRight");
+            }
+        }
+    }
+
+    // Gets Pikachu's new Positon & Plays Walking animation
+    Vector3 GetNewPosition(string direction)
+    {
+        Vector3 newPos = gridController.ReturnNewPikaPos(direction);
         position = transform.position;
+        newPos = newPos - new Vector3(0, 0, .1f);
+
+        // Set direction for animation purposes
+        lastDirection = direction;
 
         // Check if Pikachu can Move
-        if (newPosition == position)
+        if (newPos.Equals(position))
         {
             pikaBlock.Play();
-            
+            moving = false;
         }
         else
         {
@@ -80,31 +151,64 @@ public class Pikachu : MonoBehaviour {
             {
                 anim.Play("WalkRight");
             }
+
             // Play Walking SoundFX
             pikaWalk.Play();
-            // Move Pikachu
-            transform.Translate(newPosition * Time.deltaTime);
-            //SetAnimation(0);            
-        }
 
+        }
+        return newPos;
+    }
+
+    void EatFood()
+    {
+        // Play Eating Animation
+        anim.Play("Eat");
+
+        // Tell Grid Controller Food is Eaten
+        gridController.FoodEaten();
+
+        // Pikachu is eating, wait for it to Eat before going playing backward idle animation.
+        eating = true;
+        lastDirection = "Down";
+        StartCoroutine(Wait("Eat"));
     }
 
     void Die()
     {
-        //Play Death Animation & Sound
+        // Play Death Animation & Sound
         pikaDeath.Play();
+        anim.Play("DeadRight");
 
-        
-        //Tell GridController Pikachu Died
-        gridController.PikachuDead();
+        // Wait 1 second then tell GridController Pikachu is Dead
+        StartCoroutine(Wait("Die"));
+    }
+
+    // Makes the program Wait
+    IEnumerator Wait(string action)
+    {
+        if (action.Equals("Die"))
+        {
+            yield return new WaitForSeconds(5);
+            //Tell GridController Pikachu Died
+            gridController.PikachuDead();
+        }
+        else if (action.Equals("Eat"))
+        {
+            yield return new WaitForSeconds(2);
+            eating = false;
+            PlayIdleAnimation();
+        }
     }
 
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag.Equals("Pokeball"))
         {
-            
             Die();
+        }
+        else if (collision.gameObject.tag.Equals("Food"))
+        {
+            EatFood();
         }
     }
 }

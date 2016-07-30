@@ -23,7 +23,9 @@ public class GridController : MonoBehaviour
     bool[,] objGrid = new bool[GRID_WIDTH, GRID_HEIGHT]; //2D bool array of where obstacles are
 
     public GameObject pikachuObject; //Pikachu Object
+    public GameObject foodObject;
     GameObject pikachu; //Pikachu Instance
+    GameObject food;
 
     // Use this for initialization
     void Start()
@@ -86,31 +88,47 @@ public class GridController : MonoBehaviour
         //  Set the grids local value of pikachus position to it's current position
         pikaNewX = pikachuX;
         pikaNewY = pikachuY;
+        bool canMove = false;
 
         //  Handle repositioning based on the key pressed
         switch (direction.ToLower())
         {
             case "up":
-                pikaNewY++;
+                if(pikachuY < GRID_HEIGHT-1)
+                {
+                    pikaNewY++;
+                    canMove = CheckIfCanMove(pikaNewX, pikaNewY);
+                }               
                 break;
             case "down":
-                pikaNewY--;
+                if (pikachuY > 0)
+                {
+                    pikaNewY--;
+                    canMove = CheckIfCanMove(pikaNewX, pikaNewY);
+                }
                 break;
             case "left":
-                pikaNewX--;
+                if (pikachuX > 0)
+                {
+                    pikaNewX--;
+                    canMove = CheckIfCanMove(pikaNewX, pikaNewY);
+                }
                 break;
             case "right":
-                pikaNewX++;
+                if (pikachuX < GRID_WIDTH-1)
+                {
+                    pikaNewX++;
+                    canMove = CheckIfCanMove(pikaNewX, pikaNewY);
+                }
                 break;
         }
         // If Pikachu can move coordinates are update, otherwise they remain unchanged
-        if (CheckIfCanMove(pikaNewX, pikaNewY))
+        if (canMove)
         {
             pikachuX = pikaNewX;
             pikachuY = pikaNewY;
         }
         // Return Pikachu's New Position using it's new grid coords
-        Debug.Log("NewPosition : " + grid[pikachuX, pikachuY]);
         return grid[pikachuX, pikachuY];
     }
 
@@ -118,6 +136,7 @@ public class GridController : MonoBehaviour
     {
         // at this point we need to decide if we go to a game over screen or
         // directly back to the menu to start a new game
+        Debug.Log("You Lose");
         DestroyObject(pikachu);
     }
 
@@ -125,6 +144,8 @@ public class GridController : MonoBehaviour
     {
         // food object can call this which can instantiate a new level into
         // the scene and then destroy this one
+        Debug.Log("You Win!");
+        DestroyObject(food);
     }
 
     // Update is called once per frame
@@ -421,6 +442,8 @@ public class GridController : MonoBehaviour
         // create and setup trainers
 
         // create and setup food
+        food = CreateObject(foodObject, grid[pikachuX, GRID_HEIGHT-1]);
+
     }
 
     ////////////////////////////////////////////////////////////////
