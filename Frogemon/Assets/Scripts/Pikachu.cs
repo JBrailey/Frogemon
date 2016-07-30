@@ -11,6 +11,11 @@ public class Pikachu : MonoBehaviour
     float speed = 1f;
     bool moving = false, eating = false;
     string lastDirection = "Up";
+    bool isDead; // added to prevent pikachu from moving once dead
+
+    //// CAMERA TRACKING
+    CameraController camControl;
+    //// CAMERA TRACKING
 
     // Use this for initialization
     void Start()
@@ -24,6 +29,10 @@ public class Pikachu : MonoBehaviour
         pikaDeath = audio[2];
 
         position = transform.position;
+
+        //// CAMERA TRACKING
+        camControl = Camera.main.GetComponent<CameraController>();
+        //// CAMERA TRACKING
     }
 
     void SetGridController(GridController gc)
@@ -34,6 +43,12 @@ public class Pikachu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // ignore updates once dead
+        if (isDead)
+        {
+            return;
+        }
+
         // Kill Test
         if (Input.GetKeyUp(KeyCode.K))
         {
@@ -90,6 +105,10 @@ public class Pikachu : MonoBehaviour
         else
         {
             transform.position = Vector3.MoveTowards(transform.position, newPosition, speed * Time.deltaTime);
+
+            //// CAMERA TRACKING
+            camControl.MoveTo(transform.position);
+            //// CAMERA TRACKING
         }
     }
 
@@ -179,6 +198,9 @@ public class Pikachu : MonoBehaviour
         pikaDeath.Play();
         anim.Play("DeadRight");
 
+        // flag as dead
+        isDead = true;
+
         // Wait 1 second then tell GridController Pikachu is Dead
         StartCoroutine(Wait("Die"));
     }
@@ -188,7 +210,7 @@ public class Pikachu : MonoBehaviour
     {
         if (action.Equals("Die"))
         {
-            yield return new WaitForSeconds(5);
+            yield return new WaitForSeconds(3);
             //Tell GridController Pikachu Died
             gridController.PikachuDead();
         }

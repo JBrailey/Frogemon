@@ -136,6 +136,7 @@ public class GridController : MonoBehaviour
     {
         // at this point we need to decide if we go to a game over screen or
         // directly back to the menu to start a new game
+
         Debug.Log("You Lose");
         DestroyObject(pikachu);
     }
@@ -179,7 +180,7 @@ public class GridController : MonoBehaviour
     // editor data
 
     // the prefab to use as a grass background
-    public GameObject grassTile;
+    public GameObject[] grassTiles;
 
     // the prefab to use as water
     public GameObject waterTile;
@@ -231,13 +232,17 @@ public class GridController : MonoBehaviour
     // build the background
     void BuildBackground()
     {
+        // grass selector
+        RandomInt intGenG = new RandomInt(0, grassTiles.Length - 1);
+        int grassIdx = intGenG.Value;
+
         for (int y = 0; y < GRID_HEIGHT; ++y)
         {
             for (int x = 0; x < GRID_WIDTH; ++x)
             {
                 // instantiate the tile
                 Vector3 tilePos = new Vector3(grid[x, y].x, grid[x, y].y, BACKGROUND_Z);
-                CreateObject(grassTile, tilePos);
+                CreateObject(grassTiles[grassIdx], tilePos);
             }
         }
     }
@@ -270,7 +275,7 @@ public class GridController : MonoBehaviour
     //      ** *******
     void CarvePath(int a_startY, int a_endY, int a_startX, int a_endX)
     {
-        // loop until the y position meet
+        // loop until the y positions meet
         do
         {
             // clear the first tile and move up
@@ -378,7 +383,7 @@ public class GridController : MonoBehaviour
             ProcessPath(startY, endY, intGenX.Value, intGenX.Value);
         }
 
-        // the third is between the start and second group of trainers
+        // the third is between the start and first group of trainers
         startY = 1;
         endY = groupOneIdx - 1;
 

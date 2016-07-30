@@ -159,6 +159,7 @@ GameObject:
   - 92: {fileID: 1093420159}
   - 124: {fileID: 1093420158}
   - 81: {fileID: 1093420157}
+  - 114: {fileID: 1093420162}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -207,7 +208,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.25
+  orthographic size: 2.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -228,12 +229,23 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1093420156}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.25, y: 4.75, z: -10}
+  m_LocalPosition: {x: 3.25, y: 2.75, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &1093420162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1093420156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf50991ca76d5734c9f93996e4d4589e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1418973439
 Prefab:
   m_ObjectHideFlags: 0
@@ -241,6 +253,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11480420, guid: ee854f04445a1ea419593868f15c4be1, type: 2}
+      propertyPath: grassTiles.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 11480420, guid: ee854f04445a1ea419593868f15c4be1, type: 2}
       propertyPath: obstacleTiles.Array.size
       value: 5
@@ -309,6 +325,18 @@ Prefab:
       propertyPath: bridgeTile
       value: 
       objectReference: {fileID: 165890, guid: 72405d05cdf4f5f4196594712217a570, type: 2}
+    - target: {fileID: 11480420, guid: ee854f04445a1ea419593868f15c4be1, type: 2}
+      propertyPath: grassTiles.Array.data[0]
+      value: 
+      objectReference: {fileID: 194968, guid: 8be764750ccc1b5478297d478e92d7f7, type: 2}
+    - target: {fileID: 11480420, guid: ee854f04445a1ea419593868f15c4be1, type: 2}
+      propertyPath: grassTiles.Array.data[1]
+      value: 
+      objectReference: {fileID: 109874, guid: 971e1326c1398b4409477a5c3ae9e653, type: 2}
+    - target: {fileID: 11480420, guid: ee854f04445a1ea419593868f15c4be1, type: 2}
+      propertyPath: grassTiles.Array.data[2]
+      value: 
+      objectReference: {fileID: 195950, guid: 13d833b908c20234980750f1585f45bc, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ee854f04445a1ea419593868f15c4be1, type: 2}
   m_IsPrefabParent: 0
