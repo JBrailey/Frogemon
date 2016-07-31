@@ -5,14 +5,16 @@ public class Trainer : MonoBehaviour {
 
     int timerRun; // The timer that runs
     int timerSet;  // The set value of the timer
+    Vector3 position;
 
     public GridController gridController;
+    public LevelController levelController;
     public Pokeball pokeBall;
 
 	// Use this for initialization
 	void Start ()
     {
-        timerSet = 60 *  (1/gridController.level);
+        timerSet = 60 *  (1/levelController.level);
         timerRun = timerSet;
 	}
 	
@@ -21,7 +23,7 @@ public class Trainer : MonoBehaviour {
     {
         if (timerRun <= 0 )
         {
-            Instantiate(pokeBall);
+            Instantiate(pokeBall,position,Quaternion.identity);
             timerRun = timerSet;
         }
         else
