@@ -25,4 +25,16 @@ public class CameraController : MonoBehaviour
         // move the camera
         transform.position = new Vector3(x, y, z);
     }
+
+    // snap the camera to the top of the level (max position)
+    public void SnapToTop()
+    {
+        transform.position = new Vector3(MAX_CAMERA_X, MAX_CAMERA_Y, MAX_CAMERA_Z);
+    }
+
+    // snap the camera to the bottom of the level (min position)
+    public void SnapToBottom()
+    {
+        transform.position = new Vector3(MIN_CAMERA_X, MIN_CAMERA_Y, MIN_CAMERA_Z);
+    }
 }

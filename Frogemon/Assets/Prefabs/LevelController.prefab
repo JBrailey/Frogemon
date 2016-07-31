@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1951bc45fa97dfc4980b315eab8ad58e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridController: {fileID: 126104, guid: ee854f04445a1ea419593868f15c4be1, type: 2}
+  gridObject: {fileID: 126104, guid: ee854f04445a1ea419593868f15c4be1, type: 2}
   level: 1
 --- !u!1001 &100100000
 Prefab:

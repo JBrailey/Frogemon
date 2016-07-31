@@ -26,6 +26,7 @@ public class GridController : MonoBehaviour
     GameObject pikachu; //Pikachu Instance
 
     public GameObject levelController; // level controller instance
+    public bool autoLevelStart = false; // flag to indicate if the level should start automatically
 
     // Use this for initialization
     void Start()
@@ -56,10 +57,23 @@ public class GridController : MonoBehaviour
         // setup the endzone
         BuildEndZone();
 
-        // setup the characters
-        BuildCharacters();
+        // setup the food
+        BuildFood();
+
+        // should the level auto start?
+        if (autoLevelStart)
+        {
+            StartLevel();
+        }
 
         //// LEVEL GEN ////
+    }
+
+    // called to start the level
+    public void StartLevel()
+    {
+        // setup the characters
+        BuildCharacters();
     }
 
     //  Return an objects actual grid position
@@ -131,26 +145,16 @@ public class GridController : MonoBehaviour
         return grid[pikachuX, pikachuY];
     }
 
+    // called when pikachu dies
     public void PikachuDead()
     {
-        // at this point we need to decide if we go to a game over screen or
-        // directly back to the menu to start a new game
-
-        Debug.Log("You Lose");
-        DestroyObject(pikachu);
+        levelController.GetComponent<LevelController>().GameOver();
     }
 
+    // called when the level is completed
     public void FoodEaten()
     {
-        // food object can call this which can instantiate a new level into
-        // the scene and then destroy this one
-        Debug.Log("You Win!");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        levelController.GetComponent<LevelController>().NextLevel();
     }
 
 
@@ -435,6 +439,12 @@ public class GridController : MonoBehaviour
         CreateObject(bridgeTile, grid[centerX, GRID_HEIGHT - 3]);
     }
 
+    // spawn the level food
+    void BuildFood()
+    {
+        CreateObject(foodObject, grid[pikachuX, GRID_HEIGHT - 1]);
+    }
+
     // spawns the level characters
     void BuildCharacters()
     {
@@ -444,9 +454,9 @@ public class GridController : MonoBehaviour
 
         // create and setup trainers
 
-        // create and setup food
-        CreateObject(foodObject, grid[pikachuX, GRID_HEIGHT-1]);
-
+        // if someone else adds trainer instantiation you can use
+        // levelController.GetComponent<LevelController>().level
+        // to pass the level number to the trainers
     }
 
     ////////////////////////////////////////////////////////////////
