@@ -5,13 +5,12 @@ public class Pikachu : MonoBehaviour
 {
 
     public GridController gridController;
-    AudioSource pikaWalk, pikaDeath, pikaBlock;
+    AudioSource pikaWalk, pikaDeath, pikaBlock, pikaEat;
     Animator anim;
     Vector3 position, newPosition;
     float speed = 1f;
     bool moving = false, eating = false;
     string lastDirection = "Up";
-    bool isDead; // added to prevent pikachu from moving once dead
 
     //// CAMERA TRACKING
     CameraController camControl;
@@ -20,13 +19,13 @@ public class Pikachu : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        //gridController = GetComponent<GridController>();
         anim = GetComponent<Animator>();
 
         AudioSource[] audio = GetComponents<AudioSource>();
         pikaWalk = audio[0];
         pikaBlock = audio[1];
         pikaDeath = audio[2];
+        pikaEat = audio[3];
 
         position = transform.position;
 
@@ -43,24 +42,20 @@ public class Pikachu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // ignore updates once dead
-        if (isDead)
-        {
-            return;
-        }
 
-        // Kill Test
+        /*// Kill Test
         if (Input.GetKeyUp(KeyCode.K))
         {
             Die();
-        }
+        }*/
 
         // If not currently moving, Check for Key Presses
         if (!moving)
         {
             CheckForKeyPress();
         }
-        //If still moving, Kep moving
+
+        // If still moving, Keep moving
         else
         {
             Move();
@@ -180,11 +175,9 @@ public class Pikachu : MonoBehaviour
 
     void EatFood()
     {
-        // Play Eating Animation
+        // Play Eating Animation & sound
         anim.Play("Eat");
-
-        // Tell Grid Controller Food is Eaten
-        gridController.FoodEaten();
+        pikaEat.Play();
 
         // Pikachu is eating, wait for it to Eat before going playing backward idle animation.
         eating = true;
@@ -198,8 +191,8 @@ public class Pikachu : MonoBehaviour
         pikaDeath.Play();
         anim.Play("DeadRight");
 
-        // flag as dead
-        isDead = true;
+        // Set moving to true to prevent pikachu from moving before it gets Destroyed
+        moving = true;
 
         // Wait 1 second then tell GridController Pikachu is Dead
         StartCoroutine(Wait("Die"));
@@ -211,12 +204,15 @@ public class Pikachu : MonoBehaviour
         if (action.Equals("Die"))
         {
             yield return new WaitForSeconds(3);
-            //Tell GridController Pikachu Died
+            // Tell GridController Pikachu Died
             gridController.PikachuDead();
         }
         else if (action.Equals("Eat"))
         {
             yield return new WaitForSeconds(2);
+            // Tell Grid Controller Food is Eaten
+            gridController.FoodEaten();
+
             eating = false;
             PlayIdleAnimation();
         }
