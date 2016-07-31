@@ -146,7 +146,6 @@ public class GridController : MonoBehaviour
         // food object can call this which can instantiate a new level into
         // the scene and then destroy this one
         Debug.Log("You Win!");
-        DestroyObject(food);
     }
 
     // Update is called once per frame
