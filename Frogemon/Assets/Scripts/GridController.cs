@@ -12,7 +12,6 @@ using System.Collections.Generic;
 
 public class GridController : MonoBehaviour
 {
-
     const int GRID_WIDTH = 11; // The numberof cells wide the grid is
     const int GRID_HEIGHT = 17; // The number of cells High the grid is
     public Vector3[,] grid;
@@ -21,6 +20,7 @@ public class GridController : MonoBehaviour
     int pikaNewX; // New x position
     int pikaNewY; // New Y position
     bool[,] objGrid = new bool[GRID_WIDTH, GRID_HEIGHT]; //2D bool array of where obstacles are
+    public int level = 1;
 
     public GameObject pikachuObject; //Pikachu Object
     public GameObject foodObject;
