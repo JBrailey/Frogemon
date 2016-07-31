@@ -116,6 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridObject: {fileID: 126104, guid: ee854f04445a1ea419593868f15c4be1, type: 2}
+  titleObject: {fileID: 149556, guid: 770a75ed622ec464984d4dbecd39e829, type: 2}
   level: 1
 --- !u!1001 &100100000
 Prefab:
