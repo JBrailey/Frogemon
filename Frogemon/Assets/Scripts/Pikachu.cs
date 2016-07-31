@@ -9,7 +9,7 @@ public class Pikachu : MonoBehaviour
     Animator anim;
     Vector3 position, newPosition;
     float speed = 1f;
-    bool moving = false, eating = false;
+    bool isMoving = false, isEating = false, isDead = false;
     string lastDirection = "Up";
 
     //// CAMERA TRACKING
@@ -43,14 +43,14 @@ public class Pikachu : MonoBehaviour
     void Update()
     {
 
-        /*// Kill Test
+        // Kill Test
         if (Input.GetKeyUp(KeyCode.K))
         {
             Die();
-        }*/
+        }
 
         // If not currently moving, Check for Key Presses
-        if (!moving)
+        if (!isMoving && !isDead && !isEating)
         {
             CheckForKeyPress();
         }
@@ -68,22 +68,22 @@ public class Pikachu : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.W))
         {
             newPosition = GetNewPosition("Up");
-            moving = true;
+            isMoving = true;
         }
         else if (Input.GetKeyUp(KeyCode.A))
         {
             newPosition = GetNewPosition("Left");
-            moving = true;
+            isMoving = true;
         }
         else if (Input.GetKeyUp(KeyCode.S))
         {
             newPosition = GetNewPosition("Down");
-            moving = true;
+            isMoving = true;
         }
         else if (Input.GetKeyUp(KeyCode.D))
         {
             newPosition = GetNewPosition("Right");
-            moving = true;
+            isMoving = true;
         }
     }
 
@@ -93,7 +93,7 @@ public class Pikachu : MonoBehaviour
         //Check if done moving
         if (transform.position.Equals(newPosition))
         {
-            moving = false;
+            isMoving = false;
             PlayIdleAnimation();
         }
         //If not done moving, Move
@@ -109,7 +109,7 @@ public class Pikachu : MonoBehaviour
 
     void PlayIdleAnimation()
     {
-        if (!eating)
+        if (!isEating && !isDead)
         {
             if (lastDirection.Equals("Up"))
             {
@@ -144,7 +144,7 @@ public class Pikachu : MonoBehaviour
         if (newPos.Equals(position))
         {
             pikaBlock.Play();
-            moving = false;
+            isMoving = false;
         }
         else
         {
@@ -180,7 +180,7 @@ public class Pikachu : MonoBehaviour
         pikaEat.Play();
 
         // Pikachu is eating, wait for it to Eat before going playing backward idle animation.
-        eating = true;
+        isEating = true;
         lastDirection = "Down";
         StartCoroutine(Wait("Eat"));
     }
@@ -191,8 +191,8 @@ public class Pikachu : MonoBehaviour
         pikaDeath.Play();
         anim.Play("DeadRight");
 
-        // Set moving to true to prevent pikachu from moving before it gets Destroyed
-        moving = true;
+        // Set isDead to true
+        isDead = true;
 
         // Wait 1 second then tell GridController Pikachu is Dead
         StartCoroutine(Wait("Die"));
@@ -203,7 +203,7 @@ public class Pikachu : MonoBehaviour
     {
         if (action.Equals("Die"))
         {
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(1);
             // Tell GridController Pikachu Died
             gridController.PikachuDead();
         }
@@ -213,7 +213,7 @@ public class Pikachu : MonoBehaviour
             // Tell Grid Controller Food is Eaten
             gridController.FoodEaten();
 
-            eating = false;
+            isEating = false;
             PlayIdleAnimation();
         }
     }
