@@ -20,12 +20,12 @@ public class GridController : MonoBehaviour
     int pikaNewX; // New x position
     int pikaNewY; // New Y position
     bool[,] objGrid = new bool[GRID_WIDTH, GRID_HEIGHT]; //2D bool array of where obstacles are
-    public int level = 1;
 
     public GameObject pikachuObject; //Pikachu Object
     public GameObject foodObject;
     GameObject pikachu; //Pikachu Instance
-    GameObject food;
+
+    public GameObject levelController; // level controller instance
 
     // Use this for initialization
     void Start()
@@ -44,7 +44,6 @@ public class GridController : MonoBehaviour
                 objGrid[x, y] = false;
             }
         }
-
 
         //// LEVEL GEN ////
 
@@ -446,7 +445,7 @@ public class GridController : MonoBehaviour
         // create and setup trainers
 
         // create and setup food
-        food = CreateObject(foodObject, grid[pikachuX, GRID_HEIGHT-1]);
+        CreateObject(foodObject, grid[pikachuX, GRID_HEIGHT-1]);
 
     }
 
