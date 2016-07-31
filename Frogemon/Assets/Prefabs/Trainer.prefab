@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 481116}
   - 212: {fileID: 21290198}
   - 65: {fileID: 6561172}
+  - 114: {fileID: 11487616}
   m_Layer: 0
   m_Name: Trainer
   m_TagString: Untagged
@@ -42,6 +43,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.22, y: 0.22, z: 0.22}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &11487616
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 175196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5edb00c8bda47d47af1de23b9c7b86f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridController: {fileID: 0}
+  levelController: {fileID: 0}
+  pokeBall: {fileID: 0}
 --- !u!212 &21290198
 SpriteRenderer:
   m_ObjectHideFlags: 1
