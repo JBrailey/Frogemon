@@ -235,7 +235,7 @@ public class Pikachu : MonoBehaviour
     {
         if (action.Equals("Die"))
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
             // Tell GridController Pikachu Died
             gridController.PikachuDead();
         }

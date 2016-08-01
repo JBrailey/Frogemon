@@ -11,7 +11,6 @@ public class Pokeball : MonoBehaviour
 
     void Die()
     {
-        anim.Play("Explode");
         StartCoroutine(Wait("Die"));
     }
 
@@ -40,6 +39,7 @@ public class Pokeball : MonoBehaviour
     {
         if (collision.gameObject.tag.Equals("Pikachu"))
         {
+            anim.Play("Explode");
             Die();
         }
 
@@ -51,8 +51,8 @@ public class Pokeball : MonoBehaviour
     {
         if (action.Equals("Die"))
         {
-            yield return new WaitForSeconds(1);
-            DestroyObject(gameObject);
+            yield return new WaitForSeconds(0.1f);
+            DestroyObject(this.gameObject);
         }
     }
 }
