@@ -9,7 +9,7 @@ public class Pikachu : MonoBehaviour
     Animator anim;
     Vector3 position, newPosition;
     float speed = 1f;
-    bool isMoving = false, isEating = false, isDead = false;
+    bool isMoving = false, isEating = false, isDead = false, lastMoveGood = false, dirChanged = false;
     string lastDirection = "Up";
 
     //// CAMERA TRACKING
@@ -19,15 +19,15 @@ public class Pikachu : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        // Get reference to Animator
         anim = GetComponent<Animator>();
 
+        // Get Audio
         AudioSource[] audio = GetComponents<AudioSource>();
         pikaWalk = audio[0];
         pikaBlock = audio[1];
         pikaDeath = audio[2];
         pikaEat = audio[3];
-
-        position = transform.position;
 
         //// CAMERA TRACKING
         camControl = Camera.main.GetComponent<CameraController>();
@@ -65,25 +65,35 @@ public class Pikachu : MonoBehaviour
     void CheckForKeyPress()
     {
         // Check for WASD being pressed. Checking for Key Release.
-        if (Input.GetKeyUp(KeyCode.W))
+        if (Input.GetKey(KeyCode.W))
         {
             newPosition = GetNewPosition("Up");
             isMoving = true;
+            Move();
         }
-        else if (Input.GetKeyUp(KeyCode.A))
+        else if (Input.GetKey(KeyCode.A))
         {
             newPosition = GetNewPosition("Left");
             isMoving = true;
+            Move();
         }
-        else if (Input.GetKeyUp(KeyCode.S))
+        else if (Input.GetKey(KeyCode.S))
         {
             newPosition = GetNewPosition("Down");
             isMoving = true;
+            Move();
         }
-        else if (Input.GetKeyUp(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D))
         {
             newPosition = GetNewPosition("Right");
             isMoving = true;
+            Move();
+        }
+
+        // Check if key is no longer being held down
+        if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D))
+        {
+            isMoving = false;
         }
     }
 
@@ -133,9 +143,21 @@ public class Pikachu : MonoBehaviour
     // Gets Pikachu's new Positon & Plays Walking animation
     Vector3 GetNewPosition(string direction)
     {
+
         Vector3 newPos = gridController.ReturnNewPikaPos(direction);
         position = transform.position;
         newPos = newPos - new Vector3(0, 0, .1f);
+
+        // Check if Direction has changed [Blocking Sound Spam Fix]
+        if (!dirChanged)
+        {
+            dirChanged = false;
+            
+        }
+        else
+        {
+            dirChanged = true;
+        }
 
         // Set direction for animation purposes
         lastDirection = direction;
@@ -143,11 +165,21 @@ public class Pikachu : MonoBehaviour
         // Check if Pikachu can Move
         if (newPos.Equals(position))
         {
-            pikaBlock.Play();
+            // If Pikachu has just moved or changed direction, play Blocked Sound
+            if(lastMoveGood || dirChanged)
+            {
+                pikaBlock.Play();
+            }
+            
+            // Pikachu is not moving, its last attempt to move was not good
+            lastMoveGood = false;
             isMoving = false;
         }
         else
         {
+            // Pikachu's last move was good
+            lastMoveGood = true;
+
             // Play Walking Animation
             if (direction.Equals("Up"))
             {

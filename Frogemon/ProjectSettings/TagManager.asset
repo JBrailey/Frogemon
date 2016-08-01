@@ -8,6 +8,8 @@ TagManager:
   - Food
   - Pokeball
   - Trainer
+  - Obstacle
+  - Background
   layers:
   - Default
   - TransparentFX
