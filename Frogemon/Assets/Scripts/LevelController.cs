@@ -96,6 +96,12 @@ public class LevelController : MonoBehaviour
         camControl.SnapToBottom();
     }
 
+    // Callerd when trainer needs level
+    public int ReturnLevel()
+    {
+        return level;
+    }
+
     // called when pikachu died
     public void GameOver()
     {

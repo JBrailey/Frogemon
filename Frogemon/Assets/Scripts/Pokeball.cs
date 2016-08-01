@@ -3,41 +3,56 @@ using System.Collections;
 
 public class Pokeball : MonoBehaviour
 {
-    float speed = 1f;
+    public float speed;
     bool movingRight = true;
     Vector3 position;
+    public Vector3 endPosition;
     Animator anim;
 
-    public GridController gridController;
-    public LevelController levelController;
+    
+    void Die()
+    {
+        anim.Play("Explode");
+        StartCoroutine(Wait("Die"));
+    }
+
 
     // Use this for initialization
     void Start()
     {
-        speed = 1f + ((levelController.level * 0.1f) - 0.1f);
-
         // Check for movement here
     }
     // Update is called once per frame
     void Update()
     {
-        if (movingRight == true)
+        if (position != endPosition)
         {
-            transform.position = Vector3.MoveTowards(transform.position, position + Vector3.right , speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, endPosition, speed * Time.deltaTime);
         }
         else
         {
-            transform.position = Vector3.MoveTowards(transform.position, position + Vector3.left, speed * Time.deltaTime);
+            Die();
         }
+        
     }
 
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag.Equals("Pikachu"))
         {
-            anim.Play("Explode");
-            Destroy(this);
+            Die();
         }
 
+    }
+    
+
+    // Makes the program Wait
+    IEnumerator Wait(string action)
+    {
+        if (action.Equals("Die"))
+        {
+            yield return new WaitForSeconds(1);
+            DestroyObject(this);
+        }
     }
 }

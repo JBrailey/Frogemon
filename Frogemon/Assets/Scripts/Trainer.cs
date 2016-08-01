@@ -3,18 +3,24 @@ using System.Collections;
 
 public class Trainer : MonoBehaviour {
 
-    int timerRun; // The timer that runs
-    int timerSet;  // The set value of the timer
-    Vector3 position;
 
     public GridController gridController;
     public LevelController levelController;
     public Pokeball pokeBall;
 
+    int timerRun; // The timer that runs
+    int timerSet;  // The set value of the timer
+    int level;
+    float speed;
+    Vector3 position;
+    Vector3 endPosition;
+
 	// Use this for initialization
 	void Start ()
     {
-        timerSet = 60 *  (1/levelController.level);
+        endPosition = gridController.ReturnEndPos(position);
+        level = levelController.ReturnLevel();
+        timerSet = 60 *  (1/level);
         timerRun = timerSet;
 	}
 	
@@ -23,7 +29,10 @@ public class Trainer : MonoBehaviour {
     {
         if (timerRun <= 0 )
         {
+            speed = 1f + ((level * 0.1f) - 0.1f);
             Instantiate(pokeBall,position,Quaternion.identity);
+            pokeBall.speed = speed;
+            pokeBall.endPosition = endPosition;
             timerRun = timerSet;
         }
         else

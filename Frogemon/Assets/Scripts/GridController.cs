@@ -28,6 +28,16 @@ public class GridController : MonoBehaviour
     public GameObject levelController; // level controller instance
     public bool autoLevelStart = false; // flag to indicate if the level should start automatically
 
+    public Vector3 ReturnEndPos(Vector3 position)
+    {
+        int y = (int)position.y;
+        if (position.x < 5f)
+        {
+            return grid[GRID_WIDTH, y];
+        }
+        return Vector3.right;
+    }
+
     // Use this for initialization
     void Start()
     {
