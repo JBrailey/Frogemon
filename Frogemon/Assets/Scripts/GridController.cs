@@ -14,57 +14,35 @@ public class GridController : MonoBehaviour
 {
     const int GRID_WIDTH = 13; // The numberof cells wide the grid is
     const int GRID_HEIGHT = 17; // The number of cells High the grid is
-    public Vector3[,] grid;
-    int pikachuX = 6; // Pikachus current X position
-    int pikachuY = 0; // Pikachus current Y position
-    int pikaNewX; // New x position
-    int pikaNewY; // New Y position
-    bool[,] objGrid = new bool[GRID_WIDTH, GRID_HEIGHT]; //2D bool array of where obstacles are
+    Vector3[,] posGrid = new Vector3[GRID_WIDTH, GRID_HEIGHT]; // position grid
+    bool[,] objGrid = new bool[GRID_WIDTH, GRID_HEIGHT]; // obstacle grid
 
     public GameObject pikachuObject; //Pikachu Object
     public GameObject foodObject;
-    GameObject pikachu; //Pikachu Instance
+    GameObject pikachu; // Pikachu instance
+    int pikachuX = 6;   // Pikachu current X position
+    int pikachuY = 0;   // Pikachu current Y position
 
     public GameObject levelController; // level controller instance
     public bool autoLevelStart = false; // flag to indicate if the level should start automatically
 
-    public GameObject leftTrainerObject; // the trainer prefab
-    public GameObject rightTrainerObject; // the trainer prefab
+    public GameObject[] leftSideTrainerObjects; // trainer prefabs for the left side
+    public GameObject[] rightSideTrainerObjects; // trainer prefabs for the right side
 
-    public Vector3 ReturnEndPos(Vector3 position)
-    {
-        //int y = (int)position.y;
-        //if (position.x < 5f)
-        //{
-        //    return grid[GRID_WIDTH - 1, y];
-        //}
-        //return Vector3.right;
+    public float gridVerticalPosition; // the position of the entire grid vertically 
 
-        // just hacking this in for now to get an x and z for the right-hand side
-        float x = grid[GRID_WIDTH - 1, 0].x;
-        float z = grid[GRID_WIDTH - 1, 0].z;
-        return new Vector3(x, position.y, z);
-    }
-
-    // Use this for initialization
+    // initialize the grid controller
     void Start()
     {
-        //Create 2D Array of Vector3 & Set them
-        grid = new Vector3[GRID_WIDTH, GRID_HEIGHT];
-
+        // initialize the grids
         for (int x = 0; x < GRID_WIDTH; x++)
         {
             for (int y = 0; y < GRID_HEIGHT; y++)
             {
-                // had to update this, all sprites have center pivot and needed
-                // to adjust for the layout, this change will not break any other
-                // objects or code
-                grid[x, y] = new Vector3(x * .5f + .75f, y * .5f + .75f, ACTION_Z);
+                posGrid[x, y] = new Vector3(x * .5f + .25f, gridVerticalPosition + y * .5f + .25f, ACTION_Z);
                 objGrid[x, y] = false;
             }
         }
-
-        //// LEVEL GEN ////
 
         // setup the background
         BuildBackground();
@@ -78,89 +56,75 @@ public class GridController : MonoBehaviour
         // setup the food
         BuildFood();
 
+        // setup the trainers
+        BuildTrainers();
+
         // should the level auto start?
         if (autoLevelStart)
         {
             StartLevel();
         }
-
-        //// LEVEL GEN ////
     }
 
     // called to start the level
     public void StartLevel()
     {
-        // setup the characters
-        BuildCharacters();
+        // setup pikachu
+        BuildPikachu();
     }
 
     //  Return an objects actual grid position
     Vector3 ReturnPosition(int x, int y)
     {
-        return grid[x, y];
+        return posGrid[x, y];
     }
 
-    //  Check if there is an object in the path
-   bool CheckIfCanMove(int x, int y)
+    // Check if there is an object in the path or the coordinates are out of bounds
+    bool CheckIfCanMove(int x, int y)
     {
-        if (objGrid[x, y] == true) // If there is an object in the newcoordinates
+        // bounds validation
+        if (x < 0 || x >= GRID_WIDTH || y < 0 || y >= GRID_HEIGHT)
         {
             return false;
         }
-        else
-        {
-            return true;
-        }
+
+        // return false if an obstacle exists
+        return !objGrid[x, y];
     }
 
     //  Handle Pikachus positioning
     public Vector3 ReturnNewPikaPos(string direction)
     {
         //  Set the grids local value of pikachus position to it's current position
-        pikaNewX = pikachuX;
-        pikaNewY = pikachuY;
-        bool canMove = false;
+        int pikaNewX = pikachuX;
+        int pikaNewY = pikachuY;
 
         //  Handle repositioning based on the key pressed
         switch (direction.ToLower())
         {
             case "up":
-                if(pikachuY < GRID_HEIGHT-1)
-                {
-                    pikaNewY++;
-                    canMove = CheckIfCanMove(pikaNewX, pikaNewY);
-                }               
+                pikaNewY++;
                 break;
             case "down":
-                if (pikachuY > 0)
-                {
-                    pikaNewY--;
-                    canMove = CheckIfCanMove(pikaNewX, pikaNewY);
-                }
+                pikaNewY--;
                 break;
             case "left":
-                if (pikachuX > 0)
-                {
-                    pikaNewX--;
-                    canMove = CheckIfCanMove(pikaNewX, pikaNewY);
-                }
+                pikaNewX--;
                 break;
             case "right":
-                if (pikachuX < GRID_WIDTH-1)
-                {
-                    pikaNewX++;
-                    canMove = CheckIfCanMove(pikaNewX, pikaNewY);
-                }
+                pikaNewX++;
                 break;
         }
+
         // If Pikachu can move coordinates are update, otherwise they remain unchanged
-        if (canMove)
+        if (CheckIfCanMove(pikaNewX, pikaNewY))
         {
             pikachuX = pikaNewX;
             pikachuY = pikaNewY;
         }
+
         // Return Pikachu's New Position using it's new grid coords
-        return grid[pikachuX, pikachuY];
+        return posGrid[pikachuX, pikachuY];
     }
 
     // called when pikachu dies
@@ -261,7 +225,7 @@ public class GridController : MonoBehaviour
             for (int x = 0; x < GRID_WIDTH; ++x)
             {
                 // instantiate the tile
-                Vector3 tilePos = new Vector3(grid[x, y].x, grid[x, y].y, BACKGROUND_Z);
+                Vector3 tilePos = new Vector3(posGrid[x, y].x, posGrid[x, y].y, BACKGROUND_Z);
                 CreateObject(grassTiles[grassIdx], tilePos);
             }
         }
@@ -349,7 +313,7 @@ public class GridController : MonoBehaviour
                 x = intGenX.Value;
                 y = intGenY.Value;
 
-                // make sure its valid
+                // make sure its an empty position
                 accepted = !objGrid[x, y];
             }
             while (!accepted);
@@ -435,7 +399,7 @@ public class GridController : MonoBehaviour
                 if (objGrid[x, y])
                 {
                     // instantiate the obstacle
-                    CreateObject(obstacleTiles[intGenO.Value], grid[x, y]);
+                    CreateObject(obstacleTiles[intGenO.Value], posGrid[x, y]);
                 }
             }
         }
@@ -467,64 +431,63 @@ public class GridController : MonoBehaviour
                 objGrid[i, GRID_HEIGHT - 3] = true;
 
                 // instantiate the tiles
-                CreateObject(waterTile, grid[i, GRID_HEIGHT - 2]);
-                CreateObject(waterTile, grid[i, GRID_HEIGHT - 3]);
+                CreateObject(waterTile, posGrid[i, GRID_HEIGHT - 2]);
+                CreateObject(waterTile, posGrid[i, GRID_HEIGHT - 3]);
             }
         }
 
         // instantiate the bridge
-        CreateObject(bridgeTile, grid[centerX, GRID_HEIGHT - 2]);
-        CreateObject(bridgeTile, grid[centerX, GRID_HEIGHT - 3]);
+        CreateObject(bridgeTile, posGrid[centerX, GRID_HEIGHT - 2]);
+        CreateObject(bridgeTile, posGrid[centerX, GRID_HEIGHT - 3]);
     }
 
     // spawn the level food
     void BuildFood()
     {
-        CreateObject(foodObject, grid[pikachuX, GRID_HEIGHT - 1]);
+        CreateObject(foodObject, posGrid[pikachuX, GRID_HEIGHT - 1]);
     }
 
-    // spawns the level characters
-    void BuildCharacters()
+    // spawns the level trainers
+    void BuildTrainers()
     {
-        // create and setup pikachu
-        pikachu = CreateObject(pikachuObject, grid[pikachuX, pikachuY]);
-        pikachu.GetComponent<Pikachu>().gridController = gameObject.GetComponent<GridController>();
+        // trainer selectors
+        RandomInt intGenSide = new RandomInt(0, 1); // 0 for left, 1 for right
+        RandomInt intGenLT = new RandomInt(0, leftSideTrainerObjects.Length - 1);
+        RandomInt intGenRT = new RandomInt(0, rightSideTrainerObjects.Length - 1);
 
         // create and setup trainers
+        for (int i = 0; i < m_trainerRows.Count; ++i)
+        {
+            GameObject trainer;
+            Vector3 endPos;
 
-        // if someone else adds trainer instantiation you can use
-        // levelController.GetComponent<LevelController>().level
-        // to pass the level number to the trainers
+            // choose a side for this trainer
+            if (intGenSide.Value == 0)
+            {
+                // set the left side trainer details
+                trainer = CreateObject(leftSideTrainerObjects[intGenLT.Value], posGrid[0, m_trainerRows[i]]);
+                endPos = posGrid[GRID_WIDTH - 1, m_trainerRows[i]];
+            }
+            else
+            {
+                // set the right side trainer details
+                trainer = CreateObject(rightSideTrainerObjects[intGenRT.Value], posGrid[GRID_WIDTH - 1, m_trainerRows[i]]);
+                endPos = posGrid[0, m_trainerRows[i]];
+            }
 
-        GameObject go = CreateObject(leftTrainerObject, grid[0, m_trainerRows[0]]);
-        go.GetComponent<Trainer>().gridController = gameObject.GetComponent<GridController>();
-        go.GetComponent<Trainer>().levelController = levelController.GetComponent<LevelController>();
-        go.GetComponent<Trainer>().endPosition = grid[GRID_WIDTH - 1, m_trainerRows[0]];
+            // setup the trainer
+            trainer.GetComponent<Trainer>().gridController = gameObject.GetComponent<GridController>();
+            trainer.GetComponent<Trainer>().levelController = levelController.GetComponent<LevelController>();
+            trainer.GetComponent<Trainer>().endPosition = endPos;
+        }
+    }
 
-        go = CreateObject(leftTrainerObject, grid[0, m_trainerRows[1]]);
-        go.GetComponent<Trainer>().gridController = gameObject.GetComponent<GridController>();
-        go.GetComponent<Trainer>().levelController = levelController.GetComponent<LevelController>();
-        go.GetComponent<Trainer>().endPosition = grid[GRID_WIDTH - 1, m_trainerRows[1]];
-
-        go = CreateObject(leftTrainerObject, grid[0, m_trainerRows[2]]);
-        go.GetComponent<Trainer>().gridController = gameObject.GetComponent<GridController>();
-        go.GetComponent<Trainer>().levelController = levelController.GetComponent<LevelController>();
-        go.GetComponent<Trainer>().endPosition = grid[GRID_WIDTH - 1, m_trainerRows[2]];
-
-        go = CreateObject(rightTrainerObject, grid[GRID_WIDTH - 1, m_trainerRows[3]]);
-        go.GetComponent<Trainer>().gridController = gameObject.GetComponent<GridController>();
-        go.GetComponent<Trainer>().levelController = levelController.GetComponent<LevelController>();
-        go.GetComponent<Trainer>().endPosition = grid[0, m_trainerRows[3]];
-
-        go = CreateObject(rightTrainerObject, grid[GRID_WIDTH - 1, m_trainerRows[4]]);
-        go.GetComponent<Trainer>().gridController = gameObject.GetComponent<GridController>();
-        go.GetComponent<Trainer>().levelController = levelController.GetComponent<LevelController>();
-        go.GetComponent<Trainer>().endPosition = grid[0, m_trainerRows[4]];
-
-        go = CreateObject(rightTrainerObject, grid[GRID_WIDTH - 1, m_trainerRows[5]]);
-        go.GetComponent<Trainer>().gridController = gameObject.GetComponent<GridController>();
-        go.GetComponent<Trainer>().levelController = levelController.GetComponent<LevelController>();
-        go.GetComponent<Trainer>().endPosition = grid[0, m_trainerRows[5]];
+    // spawns pikachu
+    void BuildPikachu()
+    {
+        // create and setup pikachu
+        pikachu = CreateObject(pikachuObject, posGrid[pikachuX, pikachuY]);
+        pikachu.GetComponent<Pikachu>().gridController = gameObject.GetComponent<GridController>();
     }
 
     ////////////////////////////////////////////////////////////////

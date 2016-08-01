@@ -37,7 +37,8 @@ public class Trainer : MonoBehaviour {
         {
             speed = 1f + ((level * 0.1f) - 0.1f);
             GameObject go = (GameObject)Instantiate(pokeBall,transform.position,Quaternion.identity);
-            go.transform.parent = transform;
+            go.transform.parent = transform; // make sure the pokeballs are parented to the trainer
+                                             // this will be important for continuous level looping
             Pokeball pb = go.GetComponent<Pokeball>();
             pb.speed = speed;
             pb.endPosition = endPosition;

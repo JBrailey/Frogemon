@@ -3,10 +3,10 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour
 {
-    const float MIN_CAMERA_X = 3.75f; // camera extents, these are matched to the
-    const float MAX_CAMERA_X = 3.75f; // values specified in the editor
-    const float MIN_CAMERA_Y = 2.94f;
-    const float MAX_CAMERA_Y = 6.56f;
+    const float MIN_CAMERA_X = 3.25f; // camera extents, these are matched to the
+    const float MAX_CAMERA_X = 3.25f; // values specified in the editor
+    const float MIN_CAMERA_Y = 2.44f;
+    const float MAX_CAMERA_Y = 6.06f;
     const float MIN_CAMERA_Z = -10f;
     const float MAX_CAMERA_Z = -10f;
 

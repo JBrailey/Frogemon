@@ -51,7 +51,7 @@ public class Pokeball : MonoBehaviour
     {
         if (action.Equals("Die"))
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(.1f);
             DestroyObject(this.gameObject);
         }
     }
