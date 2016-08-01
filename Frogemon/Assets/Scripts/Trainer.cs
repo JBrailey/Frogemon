@@ -6,19 +6,19 @@ public class Trainer : MonoBehaviour {
 
     public GridController gridController;
     public LevelController levelController;
-    public Pokeball pokeBall;
+    public GameObject pokeBall;
 
     int timerRun; // The timer that runs
     int timerSet;  // The set value of the timer
     int level;
     float speed;
-    Vector3 position;
+//    Vector3 position;
     Vector3 endPosition;
 
 	// Use this for initialization
 	void Start ()
     {
-        endPosition = gridController.ReturnEndPos(position);
+        endPosition = gridController.ReturnEndPos(transform.position);
         level = levelController.ReturnLevel();
         timerSet = 60 *  (1/level);
         timerRun = timerSet;
@@ -30,9 +30,11 @@ public class Trainer : MonoBehaviour {
         if (timerRun <= 0 )
         {
             speed = 1f + ((level * 0.1f) - 0.1f);
-            Instantiate(pokeBall,position,Quaternion.identity);
-            pokeBall.speed = speed;
-            pokeBall.endPosition = endPosition;
+            GameObject go = (GameObject)Instantiate(pokeBall,transform.position,Quaternion.identity);
+            go.transform.parent = transform;
+            Pokeball pb = go.GetComponent<Pokeball>();
+            pb.speed = speed;
+            pb.endPosition = endPosition;
             timerRun = timerSet;
         }
         else

@@ -4,12 +4,11 @@ using System.Collections;
 public class Pokeball : MonoBehaviour
 {
     public float speed;
-    bool movingRight = true;
-    Vector3 position;
+//    bool movingRight = true;
+//    Vector3 position;
     public Vector3 endPosition;
     Animator anim;
 
-    
     void Die()
     {
         anim.Play("Explode");
@@ -20,12 +19,13 @@ public class Pokeball : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        anim = GetComponent<Animator>();
         // Check for movement here
     }
     // Update is called once per frame
     void Update()
     {
-        if (position != endPosition)
+        if (transform.position != endPosition)
         {
             transform.position = Vector3.MoveTowards(transform.position, endPosition, speed * Time.deltaTime);
         }
@@ -52,7 +52,7 @@ public class Pokeball : MonoBehaviour
         if (action.Equals("Die"))
         {
             yield return new WaitForSeconds(1);
-            DestroyObject(this);
+            DestroyObject(gameObject);
         }
     }
 }

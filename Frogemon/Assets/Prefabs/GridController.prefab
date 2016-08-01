@@ -40,10 +40,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 894c8367cdbd8f843b02914263276042, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 1
   pikachuObject: {fileID: 183068, guid: ba3187b2fd853e147805b5a362f89114, type: 2}
   foodObject: {fileID: 186616, guid: d039aae6af5643b4e9b567df1016df2c, type: 2}
   levelController: {fileID: 181766, guid: 24ce001baa88514439cb48adec674d6c, type: 2}
+  autoLevelStart: 0
+  trainerObject: {fileID: 175196, guid: bc3e6ed9b8d6a7647b8de4aa90774330, type: 2}
   grassTiles:
   - {fileID: 194968, guid: 8be764750ccc1b5478297d478e92d7f7, type: 2}
   - {fileID: 109874, guid: 971e1326c1398b4409477a5c3ae9e653, type: 2}

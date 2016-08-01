@@ -28,14 +28,22 @@ public class GridController : MonoBehaviour
     public GameObject levelController; // level controller instance
     public bool autoLevelStart = false; // flag to indicate if the level should start automatically
 
+    public GameObject trainerObject; // the trainer prefab
+
     public Vector3 ReturnEndPos(Vector3 position)
     {
-        int y = (int)position.y;
-        if (position.x < 5f)
-        {
-            return grid[GRID_WIDTH, y];
-        }
-        return Vector3.right;
+        // the grid doesn't work like this, y isn't necessarily equivelant to the grid y
+        //int y = (int)position.y;
+        //if (position.x < 5f)
+        //{
+        //    return grid[GRID_WIDTH, y];
+        //}
+        //return Vector3.right;
+
+        // just hacking this in for now to get an x and z for the right-hand side
+        float x = grid[GRID_WIDTH - 1, 0].x;
+        float z = grid[GRID_WIDTH - 1, 0].z;
+        return new Vector3(x, position.y, z);
     }
 
     // Use this for initialization
@@ -487,6 +495,10 @@ public class GridController : MonoBehaviour
         // if someone else adds trainer instantiation you can use
         // levelController.GetComponent<LevelController>().level
         // to pass the level number to the trainers
+
+        GameObject go = CreateObject(trainerObject, grid[0, m_trainerRows[0]]);
+        go.GetComponent<Trainer>().gridController = gameObject.GetComponent<GridController>();
+        go.GetComponent<Trainer>().levelController = levelController.GetComponent<LevelController>();
     }
 
     ////////////////////////////////////////////////////////////////
