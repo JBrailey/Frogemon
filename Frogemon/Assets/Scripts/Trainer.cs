@@ -20,7 +20,7 @@ public class Trainer : MonoBehaviour {
     {
 //        endPosition = gridController.ReturnEndPos(transform.position);
         level = levelController.ReturnLevel();
-        timerSet = 120 - 2*level;
+        timerSet = 180 - 2*level;
 
         //  Randomise the initial throw
         Random.seed = Random.Range(0, 99999);
