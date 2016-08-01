@@ -12,10 +12,10 @@ using System.Collections.Generic;
 
 public class GridController : MonoBehaviour
 {
-    const int GRID_WIDTH = 11; // The numberof cells wide the grid is
+    const int GRID_WIDTH = 13; // The numberof cells wide the grid is
     const int GRID_HEIGHT = 17; // The number of cells High the grid is
     public Vector3[,] grid;
-    int pikachuX = 5; // Pikachus current X position
+    int pikachuX = 6; // Pikachus current X position
     int pikachuY = 0; // Pikachus current Y position
     int pikaNewX; // New x position
     int pikaNewY; // New Y position
@@ -204,7 +204,7 @@ public class GridController : MonoBehaviour
     const float ACTION_Z = -1.0f;
 
     // obstacle coverage
-    const float OBSTACLE_COVERAGE = .7f;
+    const float OBSTACLE_COVERAGE = .6f;
 
     // storage for trainer rows
     List<int> m_trainerRows = new List<int>();
@@ -340,6 +340,13 @@ public class GridController : MonoBehaviour
             objGrid[x, y] = true;
         }
 
+        // map obstacles along both edges
+        for (int y = 0; y <= endRowIdx; ++y)
+        {
+            objGrid[0, y] = true;
+            objGrid[GRID_WIDTH - 1, y] = true;
+        }
+
         // find the start of each trainer group
         int halfSize = numRows / 2;
         int groupOneIdx = begRowIdx + (halfSize - TRAINERS_PER_GROUP) / 2;
@@ -368,6 +375,10 @@ public class GridController : MonoBehaviour
         // the first is between the second group of trainers and the end zone
         int startY = groupTwoIdx + TRAINERS_PER_GROUP;
         int endY = GRID_HEIGHT - 4;
+
+        // recreate the x range to ensure the guaranteed path never starts or ends
+        // directly on an edge
+        intGenX = new RandomInt(2, GRID_WIDTH - 3);
 
         // is there at least one row of obstacles here?
         if (startY <= endY)
@@ -409,6 +420,15 @@ public class GridController : MonoBehaviour
                     CreateObject(obstacleTiles[intGenO.Value], grid[x, y]);
                 }
             }
+        }
+
+        // ensure pikachu cannot walk to trainer positions
+        for (int y1 = groupOneIdx, y2 = groupTwoIdx; y1 <= groupOneIdx + TRAINERS_PER_GROUP; ++y1, ++y2)
+        {
+            objGrid[0, y1] = true;
+            objGrid[GRID_WIDTH - 1, y1] = true;
+            objGrid[0, y2] = true;
+            objGrid[GRID_WIDTH - 1, y2] = true;
         }
     }
 
