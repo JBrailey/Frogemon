@@ -8,7 +8,7 @@ public class Trainer : MonoBehaviour {
     public LevelController levelController;
     public GameObject pokeBall;
 
-    int timerRun; // The timer that runs
+    int timerRun = 999; // The timer that runs
     int timerSet;  // The set value of the timer
     int level;
     float speed;
@@ -20,7 +20,7 @@ public class Trainer : MonoBehaviour {
     {
 //        endPosition = gridController.ReturnEndPos(transform.position);
         level = levelController.ReturnLevel();
-        timerSet = 120 *  (1/level);
+        timerSet = 120 - 2*level;
         timerRun = timerSet;
 	}
 	
