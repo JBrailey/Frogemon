@@ -28,15 +28,15 @@ public class GridController : MonoBehaviour
     public GameObject levelController; // level controller instance
     public bool autoLevelStart = false; // flag to indicate if the level should start automatically
 
-    public GameObject trainerObject; // the trainer prefab
+    public GameObject leftTrainerObject; // the trainer prefab
+    public GameObject rightTrainerObject; // the trainer prefab
 
     public Vector3 ReturnEndPos(Vector3 position)
     {
-        // the grid doesn't work like this, y isn't necessarily equivelant to the grid y
         //int y = (int)position.y;
         //if (position.x < 5f)
         //{
-        //    return grid[GRID_WIDTH, y];
+        //    return grid[GRID_WIDTH - 1, y];
         //}
         //return Vector3.right;
 
@@ -496,9 +496,35 @@ public class GridController : MonoBehaviour
         // levelController.GetComponent<LevelController>().level
         // to pass the level number to the trainers
 
-        GameObject go = CreateObject(trainerObject, grid[0, m_trainerRows[0]]);
+        GameObject go = CreateObject(leftTrainerObject, grid[0, m_trainerRows[0]]);
         go.GetComponent<Trainer>().gridController = gameObject.GetComponent<GridController>();
         go.GetComponent<Trainer>().levelController = levelController.GetComponent<LevelController>();
+        go.GetComponent<Trainer>().endPosition = grid[GRID_WIDTH - 1, m_trainerRows[0]];
+
+        go = CreateObject(leftTrainerObject, grid[0, m_trainerRows[1]]);
+        go.GetComponent<Trainer>().gridController = gameObject.GetComponent<GridController>();
+        go.GetComponent<Trainer>().levelController = levelController.GetComponent<LevelController>();
+        go.GetComponent<Trainer>().endPosition = grid[GRID_WIDTH - 1, m_trainerRows[1]];
+
+        go = CreateObject(leftTrainerObject, grid[0, m_trainerRows[2]]);
+        go.GetComponent<Trainer>().gridController = gameObject.GetComponent<GridController>();
+        go.GetComponent<Trainer>().levelController = levelController.GetComponent<LevelController>();
+        go.GetComponent<Trainer>().endPosition = grid[GRID_WIDTH - 1, m_trainerRows[2]];
+
+        go = CreateObject(rightTrainerObject, grid[GRID_WIDTH - 1, m_trainerRows[3]]);
+        go.GetComponent<Trainer>().gridController = gameObject.GetComponent<GridController>();
+        go.GetComponent<Trainer>().levelController = levelController.GetComponent<LevelController>();
+        go.GetComponent<Trainer>().endPosition = grid[0, m_trainerRows[3]];
+
+        go = CreateObject(rightTrainerObject, grid[GRID_WIDTH - 1, m_trainerRows[4]]);
+        go.GetComponent<Trainer>().gridController = gameObject.GetComponent<GridController>();
+        go.GetComponent<Trainer>().levelController = levelController.GetComponent<LevelController>();
+        go.GetComponent<Trainer>().endPosition = grid[0, m_trainerRows[4]];
+
+        go = CreateObject(rightTrainerObject, grid[GRID_WIDTH - 1, m_trainerRows[5]]);
+        go.GetComponent<Trainer>().gridController = gameObject.GetComponent<GridController>();
+        go.GetComponent<Trainer>().levelController = levelController.GetComponent<LevelController>();
+        go.GetComponent<Trainer>().endPosition = grid[0, m_trainerRows[5]];
     }
 
     ////////////////////////////////////////////////////////////////

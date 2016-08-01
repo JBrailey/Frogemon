@@ -44,7 +44,8 @@ MonoBehaviour:
   foodObject: {fileID: 186616, guid: d039aae6af5643b4e9b567df1016df2c, type: 2}
   levelController: {fileID: 181766, guid: 24ce001baa88514439cb48adec674d6c, type: 2}
   autoLevelStart: 0
-  trainerObject: {fileID: 175196, guid: bc3e6ed9b8d6a7647b8de4aa90774330, type: 2}
+  leftTrainerObject: {fileID: 175196, guid: bc3e6ed9b8d6a7647b8de4aa90774330, type: 2}
+  rightTrainerObject: {fileID: 175196, guid: 8038fa84cbd14894a836f5e4fdfd5c6a, type: 2}
   grassTiles:
   - {fileID: 194968, guid: 8be764750ccc1b5478297d478e92d7f7, type: 2}
   - {fileID: 109874, guid: 971e1326c1398b4409477a5c3ae9e653, type: 2}

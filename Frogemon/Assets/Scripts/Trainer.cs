@@ -13,14 +13,14 @@ public class Trainer : MonoBehaviour {
     int level;
     float speed;
 //    Vector3 position;
-    Vector3 endPosition;
+    public Vector3 endPosition;
 
 	// Use this for initialization
 	void Start ()
     {
-        endPosition = gridController.ReturnEndPos(transform.position);
+//        endPosition = gridController.ReturnEndPos(transform.position);
         level = levelController.ReturnLevel();
-        timerSet = 60 *  (1/level);
+        timerSet = 120 *  (1/level);
         timerRun = timerSet;
 	}
 	
