@@ -1,17 +1,18 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class LevelController : MonoBehaviour
 {
     public GameObject gridObject; // the grid controller object
     public GameObject titleObject; // the game title
+    public GameObject keyToStartObject; // start game instructions
     public int level; // the current level number
 
     CameraController camControl; // the camera controller
     GameObject currentLevelGrid; // the current level grid controller
     bool waitToStart = true;
 
-    GameObject titleInstance; // the title / logo instance
+    GameObject titleInstance; // ui element instances
+    GameObject keyToStartInstance;
 
     const float HUD_Z = -2f; // the z depth of HUD elements
 
@@ -19,10 +20,14 @@ public class LevelController : MonoBehaviour
     void Start ()
     {
         // create the title instance and parent it to the camera
-        // note: centered for now, final position to be determined
         Vector3 titlePos = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, HUD_Z);
         titleInstance = (GameObject)Instantiate(titleObject, titlePos, Quaternion.identity);
         titleInstance.transform.parent = Camera.main.transform;
+
+        // create the start instruction instance and parent it to the camera
+        Vector3 keyPos = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y - 2f, HUD_Z);
+        keyToStartInstance = (GameObject)Instantiate(keyToStartObject, keyPos, Quaternion.identity);
+        keyToStartInstance.transform.parent = Camera.main.transform;
 
         // get the camera controller and position at the top
         camControl = Camera.main.GetComponent<CameraController>();
@@ -60,6 +65,7 @@ public class LevelController : MonoBehaviour
     void TitleVisible(bool a_visible)
     {
         titleInstance.GetComponent<Renderer>().enabled = a_visible;
+        keyToStartInstance.GetComponent<Renderer>().enabled = a_visible;
     }
 
     // spawns a level
