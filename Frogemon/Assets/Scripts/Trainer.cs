@@ -7,6 +7,7 @@ public class Trainer : MonoBehaviour {
     public GridController gridController;
     public LevelController levelController;
     public GameObject pokeBall;
+    Animator anim;
 
     int timerRun = 999; // The timer that runs
     int timerSet;  // The set value of the timer
@@ -18,6 +19,7 @@ public class Trainer : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+        anim = GetComponent<Animator>();
 //        endPosition = gridController.ReturnEndPos(transform.position);
         level = levelController.ReturnLevel();
         timerSet = 180 - 2*level;
@@ -40,10 +42,18 @@ public class Trainer : MonoBehaviour {
             pb.speed = speed;
             pb.endPosition = endPosition;
             timerRun = timerSet;
+            anim.Play("Throw");
+            StartCoroutine(Wait());
         }
         else
         {
             timerRun--;
         }
 	}
+
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(0.5f);
+        anim.Play("Idle");
+    }
 }
