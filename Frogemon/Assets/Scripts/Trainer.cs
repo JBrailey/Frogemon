@@ -21,8 +21,12 @@ public class Trainer : MonoBehaviour {
 //        endPosition = gridController.ReturnEndPos(transform.position);
         level = levelController.ReturnLevel();
         timerSet = 120 - 2*level;
-        timerRun = timerSet;
-	}
+
+        //  Randomise the initial throw
+        Random.seed = Random.Range(0, 99999);
+        timerRun = 120 - Random.Range(0,120);
+       
+    }
 	
 	// Update is called once per frame
 	void Update ()
