@@ -7,6 +7,7 @@ public class LevelController : MonoBehaviour
     public GameObject titleObject; // the game title
     public GameObject keyToStartObject; // start game instructions
     public int level; // the current level number
+    public GameObject scoreObject;
 
     CameraController camControl; // the camera controller
     GameObject previousLevelGrid; // the previous level grid controller
@@ -17,6 +18,7 @@ public class LevelController : MonoBehaviour
 
     GameObject titleInstance; // ui element instances
     GameObject keyToStartInstance;
+    GameObject scoreInstance;
 
     const float HUD_Z = -2f; // the z depth of HUD elements
 
@@ -43,6 +45,11 @@ public class LevelController : MonoBehaviour
         // spawn the first levels
         currentLevelGrid = BuildLevel(0f);
         nextLevelGrid = BuildLevel(levelPosIncrement);
+
+        // Create Score Instance and make the Camera it's parent
+        Vector3 scorePos = new Vector3(Camera.main.transform.position.x - 3.05f, Camera.main.transform.position.y + 2f, HUD_Z);
+        scoreInstance = (GameObject)Instantiate(scoreObject, scorePos, Quaternion.identity);
+        scoreInstance.transform.parent = Camera.main.transform;
 	}
 
 	// Update is called once per frame
@@ -98,6 +105,7 @@ public class LevelController : MonoBehaviour
         // return the correct starting location
         pikachu = (GameObject)Instantiate(pikachuObject, currentLevelGrid.GetComponent<GridController>().ReturnNewPikaPos("down"), Quaternion.identity);
         pikachu.GetComponent<Pikachu>().gridController = currentLevelGrid.GetComponent<GridController>();
+        pikachu.GetComponent<Pikachu>().score = scoreInstance.GetComponent<Score>();
 
         camControl.SnapToBottom();
     }

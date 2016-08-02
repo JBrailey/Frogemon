@@ -3,14 +3,18 @@ using System.Collections;
 
 public class Pikachu : MonoBehaviour
 {
-
+    // References to Piakchu's components
     public GridController gridController;
     AudioSource pikaWalk, pikaDeath, pikaBlock, pikaEat;
     Animator anim;
+    public Score score;
+
     Vector3 position, newPosition;
     float speed = 1f;
     bool isMoving = false, isEating = false, isDead = false, lastMoveGood = false, dirChanged = false;
     string lastDirection = "Up";
+
+    int pikaY = 0, pikaHighestY = 0;
 
     //// CAMERA TRACKING
     CameraController camControl;
@@ -67,6 +71,7 @@ public class Pikachu : MonoBehaviour
     {
         newPosition = GetNewPosition("Up");
         isMoving = true;
+        isEating = false; //Moved here to test to see if by making you never able to move until after this move is done if the Bonus point bug is fixed.
         Move();
     }
     // continuous level support
@@ -79,6 +84,15 @@ public class Pikachu : MonoBehaviour
             newPosition = GetNewPosition("Up");
             isMoving = true;
             Move();
+            if(newPosition != transform.position)
+            {
+                pikaY++;
+                if(pikaY > pikaHighestY)
+                {
+                    pikaHighestY = pikaY;
+                    score.NewPikachuY(pikaHighestY);
+                }
+            }
         }
         else if (Input.GetKey(KeyCode.A))
         {
@@ -91,6 +105,10 @@ public class Pikachu : MonoBehaviour
             newPosition = GetNewPosition("Down");
             isMoving = true;
             Move();
+            if (newPosition != transform.position)
+            {
+                pikaY--;
+            }
         }
         else if (Input.GetKey(KeyCode.D))
         {
@@ -253,16 +271,19 @@ public class Pikachu : MonoBehaviour
         if (action.Equals("Die"))
         {
             yield return new WaitForSeconds(0.5f);
+            score.PikachuDead();
+            pikaHighestY = 0;
             // Tell GridController Pikachu Died
             gridController.PikachuDead();
         }
         else if (action.Equals("Eat"))
         {
             yield return new WaitForSeconds(2);
+            score.FoodEaten();
             // Tell Grid Controller Food is Eaten
             gridController.FoodEaten();
 
-            isEating = false;
+            //isEating = false;
             PlayIdleAnimation();
         }
     }
