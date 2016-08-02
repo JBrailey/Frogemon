@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class LevelController : MonoBehaviour
 {
@@ -59,8 +60,8 @@ public class LevelController : MonoBehaviour
                 // hide the title
                 TitleVisible(false);
 
-                // TODO: implement camera pan to start
-                StartLevel();
+                // pan the camera and start the game once the pan is completed
+                StartCoroutine(WaitStart(camControl.AnimateToBottom(1.5f) - .01f));
             }
         }
     }
@@ -81,6 +82,13 @@ public class LevelController : MonoBehaviour
         levelGrid.GetComponent<GridController>().gridVerticalPosition = a_verticalPos;
 
         return levelGrid;
+    }
+
+    // coroutine to start the level once the camera animation is complete
+    IEnumerator WaitStart(float a_wait)
+    {
+        yield return new WaitForSeconds(a_wait);
+        StartLevel();
     }
 
     // called to create pikachu and start the level
