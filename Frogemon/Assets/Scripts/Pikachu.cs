@@ -71,8 +71,9 @@ public class Pikachu : MonoBehaviour
     {
         newPosition = GetNewPosition("Up");
         isMoving = true;
-        isEating = false; //Moved here to test to see if by making you never able to move until after this move is done if the Bonus point bug is fixed.
         Move();
+        pikaY = 0;
+        pikaHighestY = 0;
     }
     // continuous level support
 
@@ -283,7 +284,7 @@ public class Pikachu : MonoBehaviour
             // Tell Grid Controller Food is Eaten
             gridController.FoodEaten();
 
-            //isEating = false;
+            isEating = false;
             PlayIdleAnimation();
         }
     }
