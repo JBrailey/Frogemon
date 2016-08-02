@@ -23,8 +23,7 @@ public class GridController : MonoBehaviour
 
     public GameObject levelController; // level controller instance
 
-    public GameObject[] leftSideTrainerObjects; // trainer prefabs for the left side
-    public GameObject[] rightSideTrainerObjects; // trainer prefabs for the right side
+    public GameObject[] trainerObjects; // trainer prefabs
 
     public float gridVerticalPosition; // the position of the entire grid vertically 
 
@@ -170,6 +169,9 @@ public class GridController : MonoBehaviour
     // number of trainers in each group
     const int TRAINERS_PER_GROUP = 3;
 
+    // the grass tile index to use for this level background
+    static int nextLevelGrassIdx = 0;
+
     ////////////////////////////////////////////////////////////////
     // code
 
@@ -192,19 +194,19 @@ public class GridController : MonoBehaviour
     // build the background
     void BuildBackground()
     {
-        // grass selector
-        RandomInt intGenG = new RandomInt(0, grassTiles.Length - 1);
-        int grassIdx = intGenG.Value;
-
-        for (int y = 0; y < GRID_HEIGHT; ++y)
+        for (int y = 0; y < GRID_HEIGHT - 3; ++y)
         {
             for (int x = 0; x < GRID_WIDTH; ++x)
             {
                 // instantiate the tile
                 Vector3 tilePos = new Vector3(posGrid[x, y].x, posGrid[x, y].y, BACKGROUND_Z);
-                CreateObject(grassTiles[grassIdx], tilePos);
+                CreateObject(grassTiles[nextLevelGrassIdx], tilePos);
             }
         }
+
+        // select next level grass color
+        RandomInt intGenG = new RandomInt(0, grassTiles.Length - 1);
+        nextLevelGrassIdx = intGenG.Value;
     }
 
     // processes a region of obstacles and determines the best way to make a
@@ -410,6 +412,10 @@ public class GridController : MonoBehaviour
                 CreateObject(waterTile, posGrid[i, GRID_HEIGHT - 2]);
                 CreateObject(waterTile, posGrid[i, GRID_HEIGHT - 3]);
             }
+
+            // instantiate end zone grass to match the next level
+            Vector3 tilePos = new Vector3(posGrid[i, GRID_HEIGHT - 1].x, posGrid[i, GRID_HEIGHT - 1].y, BACKGROUND_Z);
+            CreateObject(grassTiles[nextLevelGrassIdx], tilePos);
         }
 
         // instantiate the bridge
@@ -428,8 +434,7 @@ public class GridController : MonoBehaviour
     {
         // trainer selectors
         RandomInt intGenSide = new RandomInt(0, 1); // 0 for left, 1 for right
-        RandomInt intGenLT = new RandomInt(0, leftSideTrainerObjects.Length - 1);
-        RandomInt intGenRT = new RandomInt(0, rightSideTrainerObjects.Length - 1);
+        RandomInt intGenT = new RandomInt(0, trainerObjects.Length - 1);
 
         // create and setup trainers
         for (int i = 0; i < m_trainerRows.Count; ++i)
@@ -441,13 +446,14 @@ public class GridController : MonoBehaviour
             if (intGenSide.Value == 0)
             {
                 // set the left side trainer details
-                trainer = CreateObject(leftSideTrainerObjects[intGenLT.Value], posGrid[0, m_trainerRows[i]]);
+                trainer = CreateObject(trainerObjects[intGenT.Value], posGrid[0, m_trainerRows[i]]);
                 endPos = posGrid[GRID_WIDTH - 1, m_trainerRows[i]];
             }
             else
             {
                 // set the right side trainer details
-                trainer = CreateObject(rightSideTrainerObjects[intGenRT.Value], posGrid[GRID_WIDTH - 1, m_trainerRows[i]]);
+                trainer = CreateObject(trainerObjects[intGenT.Value], posGrid[GRID_WIDTH - 1, m_trainerRows[i]]);
+                trainer.GetComponent<SpriteRenderer>().flipX = true;
                 endPos = posGrid[0, m_trainerRows[i]];
             }
 
