@@ -133,7 +133,9 @@ public class LevelController : MonoBehaviour
 
         // tell pikachu about the new grid controller and move pikachu into the new level
         pikachu.GetComponent<Pikachu>().gridController = currentLevelGrid.GetComponent<GridController>();
-        pikachu.GetComponent<Pikachu>().SimulateMoveForward();
+        Vector3 startPos = pikachu.transform.position;
+        startPos.y += .5f;
+        pikachu.GetComponent<Pikachu>().SimulateMoveForward(startPos);
     }
 
     // Callerd when trainer needs level

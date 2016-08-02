@@ -67,9 +67,12 @@ public class Pikachu : MonoBehaviour
     }
 
     // continuous level support
-    public void SimulateMoveForward()
+    public void SimulateMoveForward(Vector3 a_pos)
     {
-        newPosition = GetNewPosition("Up");
+        newPosition = a_pos; // GetNewPosition("Up");
+        anim.Play("WalkForward");
+        pikaWalk.Play();
+        lastDirection = "Up";
         isMoving = true;
         Move();
         pikaY = 0;
@@ -130,6 +133,7 @@ public class Pikachu : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D))
         {
             isMoving = false;
+            lastMoveGood = true;
         }
     }
 
@@ -285,7 +289,11 @@ public class Pikachu : MonoBehaviour
             gridController.FoodEaten();
 
             isEating = false;
-            PlayIdleAnimation();
+
+            // this was commented out as pikachu is now simulated to walk
+            // immediately after eating and to fix the 2 space walk I need to
+            // fully simulate, rather than just calling GetNewPosition()
+            // PlayIdleAnimation();
         }
     }
 
