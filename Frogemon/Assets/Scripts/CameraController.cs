@@ -18,7 +18,6 @@ public class CameraController : MonoBehaviour
         float x = Mathf.Max(MIN_CAMERA_X, a_pos.x);
         x = Mathf.Min(MAX_CAMERA_X, x);
         float y = Mathf.Max(MIN_CAMERA_Y, a_pos.y);
-        y = Mathf.Min(MAX_CAMERA_Y, y);
         float z = Mathf.Max(MIN_CAMERA_Z, a_pos.z);
         z = Mathf.Min(MAX_CAMERA_Z, z);
 

@@ -17,14 +17,11 @@ public class GridController : MonoBehaviour
     Vector3[,] posGrid = new Vector3[GRID_WIDTH, GRID_HEIGHT]; // position grid
     bool[,] objGrid = new bool[GRID_WIDTH, GRID_HEIGHT]; // obstacle grid
 
-    public GameObject pikachuObject; //Pikachu Object
     public GameObject foodObject;
-    GameObject pikachu; // Pikachu instance
     int pikachuX = 6;   // Pikachu current X position
     int pikachuY = 0;   // Pikachu current Y position
 
     public GameObject levelController; // level controller instance
-    public bool autoLevelStart = false; // flag to indicate if the level should start automatically
 
     public GameObject[] leftSideTrainerObjects; // trainer prefabs for the left side
     public GameObject[] rightSideTrainerObjects; // trainer prefabs for the right side
@@ -58,32 +55,13 @@ public class GridController : MonoBehaviour
 
         // setup the trainers
         BuildTrainers();
-
-        // should the level auto start?
-        if (autoLevelStart)
-        {
-            StartLevel();
-        }
-    }
-
-    // called to start the level
-    public void StartLevel()
-    {
-        // setup pikachu
-        BuildPikachu();
-    }
-
-    //  Return an objects actual grid position
-    Vector3 ReturnPosition(int x, int y)
-    {
-        return posGrid[x, y];
     }
 
     // Check if there is an object in the path or the coordinates are out of bounds
     bool CheckIfCanMove(int x, int y)
     {
-        // bounds validation
-        if (x < 0 || x >= GRID_WIDTH || y < 0 || y >= GRID_HEIGHT)
+        // bounds validation 
+        if (x < 0 || x >= GRID_WIDTH || y < 0) // can always move up
         {
             return false;
         }
@@ -138,8 +116,6 @@ public class GridController : MonoBehaviour
     {
         levelController.GetComponent<LevelController>().NextLevel();
     }
-
-
 
     ////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////
@@ -480,14 +456,6 @@ public class GridController : MonoBehaviour
             trainer.GetComponent<Trainer>().levelController = levelController.GetComponent<LevelController>();
             trainer.GetComponent<Trainer>().endPosition = endPos;
         }
-    }
-
-    // spawns pikachu
-    void BuildPikachu()
-    {
-        // create and setup pikachu
-        pikachu = CreateObject(pikachuObject, posGrid[pikachuX, pikachuY]);
-        pikachu.GetComponent<Pikachu>().gridController = gameObject.GetComponent<GridController>();
     }
 
     ////////////////////////////////////////////////////////////////

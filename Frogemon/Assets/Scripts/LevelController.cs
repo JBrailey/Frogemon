@@ -8,13 +8,19 @@ public class LevelController : MonoBehaviour
     public int level; // the current level number
 
     CameraController camControl; // the camera controller
+    GameObject previousLevelGrid; // the previous level grid controller
     GameObject currentLevelGrid; // the current level grid controller
+    GameObject nextLevelGrid; // the next level grid controller
+    const float levelPosIncrement = 8.5f; // size in units of level grid
     bool waitToStart = true;
 
     GameObject titleInstance; // ui element instances
     GameObject keyToStartInstance;
 
     const float HUD_Z = -2f; // the z depth of HUD elements
+
+    public GameObject pikachuObject; //Pikachu Object
+    GameObject pikachu; // Pikachu instance
 
     // Use this for initialization
     void Start ()
@@ -33,8 +39,9 @@ public class LevelController : MonoBehaviour
         camControl = Camera.main.GetComponent<CameraController>();
         camControl.SnapToTop();
 
-        // spawn the first level
-        BuildLevel();
+        // spawn the first levels
+        currentLevelGrid = BuildLevel(0f);
+        nextLevelGrid = BuildLevel(levelPosIncrement);
 	}
 
 	// Update is called once per frame
@@ -53,10 +60,7 @@ public class LevelController : MonoBehaviour
                 TitleVisible(false);
 
                 // TODO: implement camera pan to start
-
-                // start the level
-                currentLevelGrid.GetComponent<GridController>().StartLevel();
-                camControl.SnapToBottom();
+                StartLevel();
             }
         }
     }
@@ -69,31 +73,51 @@ public class LevelController : MonoBehaviour
     }
 
     // spawns a level
-    void BuildLevel()
+    GameObject BuildLevel(float a_verticalPos)
     {
-        // destroy the current level, if it exists
-        if (currentLevelGrid != null)
-        {
-            DestroyObject(currentLevelGrid);
-        }
-
         // spawn the level
-        currentLevelGrid = (GameObject)Instantiate(gridObject, new Vector3(0f, 0f, 0f), Quaternion.identity);
-        currentLevelGrid.GetComponent<GridController>().levelController = gameObject;
+        GameObject levelGrid = (GameObject)Instantiate(gridObject, new Vector3(0f, 0f, 0f), Quaternion.identity);
+        levelGrid.GetComponent<GridController>().levelController = gameObject;
+        levelGrid.GetComponent<GridController>().gridVerticalPosition = a_verticalPos;
+
+        return levelGrid;
+    }
+
+    // called to create pikachu and start the level
+    void StartLevel()
+    {
+        // create and setup pikachu, requesting to move down will fail but will
+        // return the correct starting location
+        pikachu = (GameObject)Instantiate(pikachuObject, currentLevelGrid.GetComponent<GridController>().ReturnNewPikaPos("down"), Quaternion.identity);
+        pikachu.GetComponent<Pikachu>().gridController = currentLevelGrid.GetComponent<GridController>();
+
+        camControl.SnapToBottom();
     }
 
     // called when the current level has been completed
     public void NextLevel()
     {
+        // destroy the previous level
+        if (previousLevelGrid)
+        {
+            DestroyObject(previousLevelGrid);
+        }
+
+        // set the current level to be the previous
+        previousLevelGrid = currentLevelGrid;
+
+        // set the next level to be the current
+        currentLevelGrid = nextLevelGrid;
+
+        // create a new next level
+        nextLevelGrid = BuildLevel(currentLevelGrid.GetComponent<GridController>().gridVerticalPosition + levelPosIncrement);
+
         // increment the level
         ++level;
 
-        // spawn the new level
-        BuildLevel();
-
-        // start the level immediately
-        currentLevelGrid.GetComponent<GridController>().autoLevelStart = true;
-        camControl.SnapToBottom();
+        // tell pikachu about the new grid controller and move pikachu into the new level
+        pikachu.GetComponent<Pikachu>().gridController = currentLevelGrid.GetComponent<GridController>();
+        pikachu.GetComponent<Pikachu>().SimulateMoveForward();
     }
 
     // Callerd when trainer needs level
@@ -108,8 +132,27 @@ public class LevelController : MonoBehaviour
         // TODO: add code to show a game over notice and move this code to a coroutine
         //       to time-out the game over notice
 
-        // spawn a new level
-        BuildLevel();
+        // destroy pikachu
+        DestroyObject(pikachu);
+
+        // destroy all current level grids
+        if (previousLevelGrid)
+        {
+            DestroyObject(previousLevelGrid);
+        }
+        if (currentLevelGrid)
+        {
+            DestroyObject(currentLevelGrid);
+        }
+        if (nextLevelGrid)
+        {
+            DestroyObject(nextLevelGrid);
+        }
+
+        // spawn the new levels
+        previousLevelGrid = null;
+        currentLevelGrid = BuildLevel(0f);
+        nextLevelGrid = BuildLevel(levelPosIncrement);
 
         // reset the level number
         level = 1;

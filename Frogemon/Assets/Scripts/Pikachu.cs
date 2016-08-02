@@ -62,6 +62,15 @@ public class Pikachu : MonoBehaviour
         }
     }
 
+    // continuous level support
+    public void SimulateMoveForward()
+    {
+        newPosition = GetNewPosition("Up");
+        isMoving = true;
+        Move();
+    }
+    // continuous level support
+
     void CheckForKeyPress()
     {
         // Check for WASD being pressed. Checking for Key Release.
