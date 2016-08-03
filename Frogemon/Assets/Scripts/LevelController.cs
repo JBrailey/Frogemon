@@ -6,6 +6,7 @@ public class LevelController : MonoBehaviour
     public GameObject gridObject; // the grid controller object
     public GameObject titleObject; // the game title
     public GameObject keyToStartObject; // start game instructions
+    public GameObject instructionsObject; // 
     public int level; // the current level number
     public GameObject scoreObject;
 
@@ -19,6 +20,7 @@ public class LevelController : MonoBehaviour
     GameObject titleInstance; // ui element instances
     GameObject keyToStartInstance;
     GameObject scoreInstance;
+    GameObject instructionsInstance;
 
     const float HUD_Z = -2f; // the z depth of HUD elements
 
@@ -37,6 +39,11 @@ public class LevelController : MonoBehaviour
         Vector3 keyPos = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y - 2f, HUD_Z);
         keyToStartInstance = (GameObject)Instantiate(keyToStartObject, keyPos, Quaternion.identity);
         keyToStartInstance.transform.parent = Camera.main.transform;
+
+        // create the move Instruction and make the camera it's parent.
+        Vector3 instuctPos = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y - 1.5f, HUD_Z);
+        instructionsInstance = (GameObject)Instantiate(instructionsObject, instuctPos, Quaternion.identity);
+        instructionsInstance.transform.parent = Camera.main.transform;
 
         // get the camera controller and position at the top
         camControl = Camera.main.GetComponent<CameraController>();
@@ -78,6 +85,7 @@ public class LevelController : MonoBehaviour
     {
         titleInstance.GetComponent<Renderer>().enabled = a_visible;
         keyToStartInstance.GetComponent<Renderer>().enabled = a_visible;
+        instructionsInstance.GetComponent<Renderer>().enabled = a_visible;
     }
 
     // spawns a level
