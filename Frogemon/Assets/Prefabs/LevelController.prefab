@@ -118,6 +118,7 @@ MonoBehaviour:
   gridObject: {fileID: 126104, guid: ee854f04445a1ea419593868f15c4be1, type: 2}
   titleObject: {fileID: 149556, guid: 770a75ed622ec464984d4dbecd39e829, type: 2}
   keyToStartObject: {fileID: 154726, guid: 60985b9846756d44f8dac7472f8a818a, type: 2}
+  instructionsObject: {fileID: 100186, guid: cc5e72ca906a2ac46a9a6f97fc0a617b, type: 2}
   level: 1
   scoreObject: {fileID: 136388, guid: 8fe6ce81e77e80a4da9480de6ca64458, type: 2}
   pikachuObject: {fileID: 183068, guid: ba3187b2fd853e147805b5a362f89114, type: 2}
