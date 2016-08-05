@@ -223,7 +223,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b73f4253aca41a94499cdb2f51e7dc36, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -389,6 +389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridController: {fileID: 11480420, guid: ee854f04445a1ea419593868f15c4be1, type: 2}
+  score: {fileID: 0}
 --- !u!212 &21296178
 SpriteRenderer:
   m_ObjectHideFlags: 1
