@@ -11,7 +11,7 @@ GameObject:
   - 212: {fileID: 21214026}
   - 65: {fileID: 6538680}
   - 95: {fileID: 9557910}
-  - 114: {fileID: 11424518}
+  - 114: {fileID: 11449632}
   m_Layer: 0
   m_Name: Trainer_4
   m_TagString: Untagged
@@ -61,7 +61,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11424518
+--- !u!114 &11449632
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -69,7 +69,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 151932}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c51a2ee099a37842809b659236cc683, type: 3}
+  m_Script: {fileID: 11500000, guid: e5edb00c8bda47d47af1de23b9c7b86f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gridController: {fileID: 0}
@@ -102,9 +102,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 17184fe9e04867c4e997ad7f330e279d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4c2f3bc1a1a47d04abb28dc6b3e84ac7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 1
 --- !u!1001 &100100000
 Prefab:

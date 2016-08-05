@@ -44,6 +44,9 @@ MonoBehaviour:
   levelController: {fileID: 181766, guid: 24ce001baa88514439cb48adec674d6c, type: 2}
   trainerObjects:
   - {fileID: 175196, guid: bc3e6ed9b8d6a7647b8de4aa90774330, type: 2}
+  - {fileID: 145852, guid: 4b0a8131e499763428875ac4473ad5d8, type: 2}
+  - {fileID: 149974, guid: b3e76903f15dc8a4d949e23ed56d7d5c, type: 2}
+  - {fileID: 151932, guid: 8d9f6b0d44f94d94eac11b348c790c7f, type: 2}
   gridVerticalPosition: 0
   grassTiles:
   - {fileID: 194968, guid: 8be764750ccc1b5478297d478e92d7f7, type: 2}

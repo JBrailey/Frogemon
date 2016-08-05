@@ -10,8 +10,8 @@ GameObject:
   - 4: {fileID: 413084}
   - 212: {fileID: 21253240}
   - 65: {fileID: 6524030}
-  - 114: {fileID: 11463524}
   - 95: {fileID: 9546152}
+  - 114: {fileID: 11409420}
   m_Layer: 0
   m_Name: Trainer_3
   m_TagString: Untagged
@@ -61,7 +61,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11463524
+--- !u!114 &11409420
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -105,7 +105,7 @@ SpriteRenderer:
   m_Sprite: {fileID: 21300000, guid: 17184fe9e04867c4e997ad7f330e279d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
-  m_FlipY: 0
+  m_FlipY: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
