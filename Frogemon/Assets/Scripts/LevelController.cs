@@ -14,7 +14,7 @@ public class LevelController : MonoBehaviour
     GameObject previousLevelGrid; // the previous level grid controller
     GameObject currentLevelGrid; // the current level grid controller
     GameObject nextLevelGrid; // the next level grid controller
-    const float levelPosIncrement = 8.5f; // size in units of level grid
+    const float LEVEL_HEIGHT = 8.5f; // size in units of level grid
     bool waitToStart = true;
 
     GameObject titleInstance; // ui element instances
@@ -51,7 +51,7 @@ public class LevelController : MonoBehaviour
 
         // spawn the first levels
         currentLevelGrid = BuildLevel(0f, level);
-        nextLevelGrid = BuildLevel(levelPosIncrement, level + 1);
+        nextLevelGrid = BuildLevel(LEVEL_HEIGHT, level + 1);
 
         // Create Score Instance and make the Camera it's parent
         Vector3 scorePos = new Vector3(Camera.main.transform.position.x - 3.05f, Camera.main.transform.position.y + 2f, HUD_Z);
@@ -138,7 +138,7 @@ public class LevelController : MonoBehaviour
         ++level;
 
         // create a new next level
-        nextLevelGrid = BuildLevel(currentLevelGrid.GetComponent<GridController>().gridVerticalPosition + levelPosIncrement, level + 1);
+        nextLevelGrid = BuildLevel(currentLevelGrid.GetComponent<GridController>().gridVerticalPosition + LEVEL_HEIGHT, level + 1);
 
         // tell pikachu about the new grid controller and move pikachu into the new level
         pikachu.GetComponent<Pikachu>().gridController = currentLevelGrid.GetComponent<GridController>();
@@ -183,7 +183,7 @@ public class LevelController : MonoBehaviour
         // spawn the new levels
         previousLevelGrid = null;
         currentLevelGrid = BuildLevel(0f, level);
-        nextLevelGrid = BuildLevel(levelPosIncrement, level + 1);
+        nextLevelGrid = BuildLevel(LEVEL_HEIGHT, level + 1);
 
         // show the title
         TitleVisible(true);
