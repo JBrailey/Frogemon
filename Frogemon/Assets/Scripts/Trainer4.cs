@@ -5,24 +5,20 @@ public class Trainer4 : MonoBehaviour
 {
 
 
-    public GridController gridController;
-    public LevelController levelController;
     public GameObject pokeBall;
     Animator anim;
 
     int timerRun = 999; // The timer that runs
     int timerSet;  // The set value of the timer
-    int level;
     float speed;
     //    Vector3 position;
     public Vector3 endPosition;
+    public int level;
 
     // Use this for initialization
     void Start()
     {
         anim = GetComponent<Animator>();
-        //        endPosition = gridController.ReturnEndPos(transform.position);
-        level = levelController.ReturnLevel();
         timerSet = 300 - 2 * level;
 
         //  Randomise the initial throw

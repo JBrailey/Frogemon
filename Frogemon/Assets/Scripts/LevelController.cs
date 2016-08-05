@@ -50,8 +50,8 @@ public class LevelController : MonoBehaviour
         camControl.SnapToTop();
 
         // spawn the first levels
-        currentLevelGrid = BuildLevel(0f);
-        nextLevelGrid = BuildLevel(levelPosIncrement);
+        currentLevelGrid = BuildLevel(0f, level);
+        nextLevelGrid = BuildLevel(levelPosIncrement, level + 1);
 
         // Create Score Instance and make the Camera it's parent
         Vector3 scorePos = new Vector3(Camera.main.transform.position.x - 3.05f, Camera.main.transform.position.y + 2f, HUD_Z);
@@ -89,12 +89,13 @@ public class LevelController : MonoBehaviour
     }
 
     // spawns a level
-    GameObject BuildLevel(float a_verticalPos)
+    GameObject BuildLevel(float a_verticalPos, int a_level)
     {
         // spawn the level
         GameObject levelGrid = (GameObject)Instantiate(gridObject, new Vector3(0f, 0f, 0f), Quaternion.identity);
         levelGrid.GetComponent<GridController>().levelController = gameObject;
         levelGrid.GetComponent<GridController>().gridVerticalPosition = a_verticalPos;
+        levelGrid.GetComponent<GridController>().gridLevel = a_level;
 
         return levelGrid;
     }
@@ -133,11 +134,11 @@ public class LevelController : MonoBehaviour
         // set the next level to be the current
         currentLevelGrid = nextLevelGrid;
 
-        // create a new next level
-        nextLevelGrid = BuildLevel(currentLevelGrid.GetComponent<GridController>().gridVerticalPosition + levelPosIncrement);
-
-        // increment the level
+        // increment the level (this now matches the current level)
         ++level;
+
+        // create a new next level
+        nextLevelGrid = BuildLevel(currentLevelGrid.GetComponent<GridController>().gridVerticalPosition + levelPosIncrement, level + 1);
 
         // tell pikachu about the new grid controller and move pikachu into the new level
         pikachu.GetComponent<Pikachu>().gridController = currentLevelGrid.GetComponent<GridController>();
@@ -146,11 +147,12 @@ public class LevelController : MonoBehaviour
         pikachu.GetComponent<Pikachu>().SimulateMoveForward(startPos);
     }
 
-    // Callerd when trainer needs level
-    public int ReturnLevel()
-    {
-        return level;
-    }
+    // HAD TO REMOVE AS GRIDS ARE CREATED OUT OF SYNC WITH LEVEL
+    // TRAINERS ARE NOW TOLD THEIR LEVEL
+    //public int ReturnLevel()
+    //{
+    //    return level;
+    //}
 
     // called when pikachu died
     public void GameOver()
@@ -175,13 +177,13 @@ public class LevelController : MonoBehaviour
             DestroyObject(nextLevelGrid);
         }
 
-        // spawn the new levels
-        previousLevelGrid = null;
-        currentLevelGrid = BuildLevel(0f);
-        nextLevelGrid = BuildLevel(levelPosIncrement);
-
         // reset the level number
         level = 1;
+
+        // spawn the new levels
+        previousLevelGrid = null;
+        currentLevelGrid = BuildLevel(0f, level);
+        nextLevelGrid = BuildLevel(levelPosIncrement, level + 1);
 
         // show the title
         TitleVisible(true);

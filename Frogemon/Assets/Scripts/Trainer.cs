@@ -4,24 +4,20 @@ using System.Collections;
 public class Trainer : MonoBehaviour {
 
 
-    public GridController gridController;
-    public LevelController levelController;
     public GameObject pokeBall;
     Animator anim;
 
     int timerRun = 999; // The timer that runs
     int timerSet;  // The set value of the timer
-    int level;
     float speed;
 //    Vector3 position;
     public Vector3 endPosition;
+    public int level;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
         anim = GetComponent<Animator>();
-//        endPosition = gridController.ReturnEndPos(transform.position);
-        level = levelController.ReturnLevel();
         timerSet = 180 - 2*level;
 
         //  Randomise the initial throw
@@ -42,6 +38,7 @@ public class Trainer : MonoBehaviour {
             Pokeball pb = go.GetComponent<Pokeball>();
             pb.speed = speed;
             pb.endPosition = endPosition;
+            pb.spin = GetComponent<SpriteRenderer>().flipX ? 1f : -1f;
             timerRun = timerSet;
             anim.Play("Throw");
             StartCoroutine(Wait());

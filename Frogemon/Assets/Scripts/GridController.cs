@@ -22,6 +22,7 @@ public class GridController : MonoBehaviour
     int pikachuY = 0;   // Pikachu current Y position
 
     public GameObject levelController; // level controller instance
+    public int gridLevel; // the level of this grid
 
     public GameObject[] trainerObjects; // trainer prefabs
 
@@ -458,9 +459,8 @@ public class GridController : MonoBehaviour
             }
 
             // setup the trainer
-            trainer.GetComponent<Trainer>().gridController = gameObject.GetComponent<GridController>();
-            trainer.GetComponent<Trainer>().levelController = levelController.GetComponent<LevelController>();
             trainer.GetComponent<Trainer>().endPosition = endPos;
+            trainer.GetComponent<Trainer>().level = gridLevel;
         }
     }
 
