@@ -72,10 +72,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5edb00c8bda47d47af1de23b9c7b86f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridController: {fileID: 0}
-  levelController: {fileID: 0}
   pokeBall: {fileID: 100738, guid: 6f95d9ad411c8f34089404f5464be9c0, type: 2}
+  speedMod: 1
+  intervalMod: 1
+  doesBurst: 0
   endPosition: {x: 0, y: 0, z: 0}
+  level: 0
 --- !u!212 &21290198
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -20,6 +20,8 @@ public class Trainer : MonoBehaviour {
     public Vector3 endPosition;
     public int level;
 
+    bool hasBursted = false;
+
     // Use this for initialization
     void Start ()
     {
@@ -43,19 +45,7 @@ public class Trainer : MonoBehaviour {
     {
         if (timerRun <= 0 )
         {
-            speed = (1f * speedMod) + ((level * 0.1f) - 0.1f);
-            GameObject go = (GameObject)Instantiate(pokeBall, transform.position, Quaternion.identity);
-            go.transform.parent = transform; // make sure the pokeballs are parented to the trainer
-                                             // this will be important for continuous level looping
-
-            Pokeball pb = go.GetComponent<Pokeball>();
-            pb.speed = speed;
-            pb.endPosition = endPosition;
-            pb.spin = GetComponent<SpriteRenderer>().flipX ? 1f : -1f;
-            timerRun = timerSet;
-            anim.Play("Throw");          
-            StartCoroutine(Wait());
-                
+            ThrowPokeball();   
         }
         else
         {
@@ -63,9 +53,41 @@ public class Trainer : MonoBehaviour {
         }
 	}
 
-    IEnumerator Wait()
+    //Throw Pokeball
+    void ThrowPokeball()
     {
-        yield return new WaitForSeconds(0.5f);
-        anim.Play("Idle");
+        anim.Play("Throw");
+        speed = (1f * speedMod) + ((level * 0.1f) - 0.1f);
+        GameObject go = (GameObject)Instantiate(pokeBall, transform.position, Quaternion.identity);
+        go.transform.parent = transform; // make sure the pokeballs are parented to the trainer
+                                         // this will be important for continuous level looping
+
+        Pokeball pb = go.GetComponent<Pokeball>();
+        pb.speed = speed;
+        pb.endPosition = endPosition;
+        pb.spin = GetComponent<SpriteRenderer>().flipX ? 1f : -1f;
+        timerRun = timerSet;
+        if (doesBurst && !hasBursted)
+        {
+            StartCoroutine(Wait("Burst"));
+        }else
+        {
+            StartCoroutine(Wait("Idle"));
+        }        
+    }
+
+    IEnumerator Wait(string action)
+    {
+        if (action.Equals("Idle"))
+        {
+            yield return new WaitForSeconds(0.5f);
+            hasBursted = false;
+            anim.Play("Idle");
+        }else if (action.Equals("Burst"))
+        {            
+            yield return new WaitForSeconds(0.3f);
+            hasBursted = true;
+            ThrowPokeball();
+        }
     }
 }
