@@ -26,7 +26,8 @@ public class Trainer : MonoBehaviour {
     void Start ()
     {
         anim = GetComponent<Animator>();
-        timerSet = (180*intervalMod) - 2*level;
+        //timerSet = (180*intervalMod) - 2*level; //Old Math
+        timerSet = (180 - 2 * level) * intervalMod; //Alternate Math
         if (doesBurst == true)
         {
             ballThrown = false;
@@ -57,7 +58,8 @@ public class Trainer : MonoBehaviour {
     void ThrowPokeball()
     {
         anim.Play("Throw");
-        speed = (1f * speedMod) + ((level * 0.1f) - 0.1f);
+        //speed = (1f * speedMod) + ((level * 0.1f) - 0.1f); // Old Math
+        speed = (1f + ((level * 0.1f) - 0.1f)) * speedMod;
         GameObject go = (GameObject)Instantiate(pokeBall, transform.position, Quaternion.identity);
         go.transform.parent = transform; // make sure the pokeballs are parented to the trainer
                                          // this will be important for continuous level looping
@@ -85,7 +87,7 @@ public class Trainer : MonoBehaviour {
             anim.Play("Idle");
         }else if (action.Equals("Burst"))
         {            
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.5f);
             hasBursted = true;
             ThrowPokeball();
         }
