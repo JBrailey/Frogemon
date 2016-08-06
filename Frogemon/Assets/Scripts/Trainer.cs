@@ -27,7 +27,7 @@ public class Trainer : MonoBehaviour {
     {
         anim = GetComponent<Animator>();
         //timerSet = (180*intervalMod) - 2*level; //Old Math
-        timerSet = (180 - 2 * level) * intervalMod; //Alternate Math
+        timerSet = (180 - (2 * level)) * intervalMod; //Alternate Math
         if (doesBurst == true)
         {
             ballThrown = false;
