@@ -261,7 +261,7 @@ public class Pikachu : MonoBehaviour
     {
         // Play Death Animation & Sound
         pikaDeath.Play();
-        anim.Play("DeadRight");
+        anim.Play("Dead");
 
         // Set isDead to true
         isDead = true;
