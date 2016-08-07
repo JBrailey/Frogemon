@@ -48,6 +48,7 @@ MonoBehaviour:
   - {fileID: 188098, guid: 4b0a8131e499763428875ac4473ad5d8, type: 2}
   - {fileID: 180798, guid: b3e76903f15dc8a4d949e23ed56d7d5c, type: 2}
   - {fileID: 198454, guid: a32cc20d0ff8376418bd2dfc013da1f1, type: 2}
+  - {fileID: 133886, guid: 8d71cb6af88365f47ba9ab9ab734945a, type: 2}
   gridVerticalPosition: 0
   grassTiles:
   - {fileID: 194968, guid: 8be764750ccc1b5478297d478e92d7f7, type: 2}
