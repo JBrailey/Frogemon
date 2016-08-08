@@ -120,15 +120,6 @@ public class Pikachu : MonoBehaviour
             newPosition = GetNewPosition("Right");
             Move();
         }
-        // Testing speed increase (Remove Later)
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            speed = 5;
-        }
-        else
-        {
-            speed = 1;
-        }
         // Check if key is no longer being held down
         if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D))
         {
